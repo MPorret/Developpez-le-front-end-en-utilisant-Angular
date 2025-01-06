@@ -1,0 +1,121 @@
+//------------------------------------------------------------------------------------------------
+// Back Button settings
+//------------------------------------------------------------------------------------------------
+
+   .back-button {
+    margin-top: 20px;             // Add margin to create space above the button
+    display: flex;                // Use flexbox for alignment
+    justify-content: flex-start;  // Align items to the start (left)
+  
+    button {
+      background-color: #008B8B;
+      color: white;
+      border: none;
+      padding: 5px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background-color 0.3s;
+      
+      &:hover {
+        background-color: #006666;
+      }
+    }
+  }
+
+  .center {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: flex-start;  // Changed from center to flex-start
+    align-items: center;
+    flex-direction: column;
+    padding-top: 10px;  // Add some padding from the top
+    position: relative; // Ensure it can contain absolutely positioned children
+}
+
+//------------------------------------------------------------------------------------------------
+// Chart background settings
+//------------------------------------------------------------------------------------------------
+
+  .chart-container {
+    width: px;  // Set width as needed
+    height: 400px; // Set height as needed
+    background-color: #f9f9f9; // Light background color
+    border-radius: 8px; // Rounded corners
+    padding: 20px; // Internal padding
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Subtle shadow for depth
+    display: flex; // Optional: Flexbox for centering content
+    justify-content: center; // Center content horizontally
+    align-items: center; // Center content vertically
+
+}
+
+//------------------------------------------------------------------------------------------------
+// Home divider settings
+//------------------------------------------------------------------------------------------------
+
+  .divider {
+    border: none;
+    height: 2px;
+    background-color: #009688;
+    margin: 20px auto; // Ensure there's space around the divider
+    width: 400px;
+    z-index: 1; // Ensure it's on top of other elements
+}
+
+  //------------------------------------------------------------------------------------------------
+  // Responsive settings
+  //------------------------------------------------------------------------------------------------
+  @media (max-width: 768px) {
+          .section-title .title-box {
+            width: 300px;
+            padding: 10px;
+          }
+        
+          .stats-container {
+            flex-direction: column;
+            max-width: 100%;
+            gap: 10px;
+          }
+        
+          .total-medals-container {
+            flex-direction: column;
+            width: 100%;
+          }
+        
+          .title-box {
+            width: 100%;
+            padding: 10px;
+          }
+        
+          .divider {
+            width: 90%;
+          }
+        
+          .medals-list {
+            max-width: 100%;
+            padding: 0 10px;
+          }
+        
+          .chart-container {
+              height: 300px; /* Reduced height for mobile */
+              width: 90%; /* Adjust width if needed */
+              // padding: 10px; /* Add some padding */
+          }
+          .title {
+            font-size: 24px;
+          }
+        
+          .title-text {
+            font-size: 18px;
+          }
+        
+          .count {
+            font-size: 24px;
+          }
+          
+}

@@ -1,0 +1,141 @@
+@import 'src/app/app.component.scss';
+
+//------------------------------------------------------------------------------------------------
+// Style for the "Medals per Country" title box
+//------------------------------------------------------------------------------------------------
+.section-title .title-box {
+    background: #388798; /* Green background */
+    border: 2px solid #388798;
+    border-radius: 10px;
+    padding: 15px;
+    width: 200px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+
+    //------------------------------------------------------------------------------------------------
+    // Style for the title text within the title box
+    //------------------------------------------------------------------------------------------------
+    .title-text {
+        color: white; /* White text */
+        font-family: 'Montserrat', sans-serif;
+        font-size: 20px;
+        font-weight: bold;
+    }
+}
+//------------------------------------------------------------------------------------------------
+// Style for the stats container boxes ( Number of JOs, Number of Countries)
+//------------------------------------------------------------------------------------------------
+
+.stats-container {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin: 0 auto;
+    max-width: 400px;
+
+    .title-box {
+        flex: 1;
+        min-width: 150px;
+        padding: 15px;
+        border-radius: 10px;
+        background: white; /* White background */
+        border: 2px solid #0f5c32;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+
+        .title-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            color: #767676;
+            margin-bottom: 8px;
+        }
+
+        .count {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 28px;
+            font-weight: 600;
+            color: #333;
+        }
+    }
+}
+
+//------------------------------------------------------------------------------------------------
+// Style for the total medals container
+//------------------------------------------------------------------------------------------------
+
+.total-medals-container {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    
+    .title-box {
+        width: 150px;
+        padding: 10px;
+        border-radius: 10px;
+        background: white;
+        border: 2px solid #0f5c32;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        text-align: center;
+
+        .title-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            color: #767676;
+            margin-bottom: 8px;
+        }
+
+        .count {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 28px;
+            font-weight: 600;
+            color: #333;
+        }
+    }
+}
+
+//------------------------------------------------------------------------------------------------
+// Additional styling for the count to ensures that the count is centered
+// and has appropriate size and margin.
+//------------------------------------------------------------------------------------------------
+
+.count {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 5px 0;
+    text-align: center;
+}
+
+//------------------------------------------------------------------------------------------------
+// Additional styling for the title text
+// to centers the title text and adds margin below it for spacing.
+//------------------------------------------------------------------------------------------------
+
+.title-text {
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+//------------------------------------------------------------------------------------------------
+// Additional styling for the main title of the section, setting font, size, weight, and margin.
+//------------------------------------------------------------------------------------------------
+
+.title {
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 28px;
+    font-weight: 500;
+    margin: 20px 0;
+    color: #333;
+}
+
+//------------------------------------------------------------------------------------------------
+// Font size for the pie chart labels
+//------------------------------------------------------------------------------------------------
+
+::ng-deep .ngx-charts .pie-label {
+    font-size: 120% !important;
+    font-weight: bold;
+  }
+  

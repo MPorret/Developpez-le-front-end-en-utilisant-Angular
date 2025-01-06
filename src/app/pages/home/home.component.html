@@ -1,3 +1,56 @@
-<h2>Olympic games app</h2>
-<hr />
-<p>{{ (olympics$ | async)?.length }} data loaded</p>
+
+<div class="center">
+<div *ngIf="olympicsdata | async as olympics" class="medals-display">
+
+    <h3 class="title">🏅 olympic-games-starter 🏅</h3>
+
+    <hr class="divider">
+
+    <div class="section-title">
+        <div class="title-box">
+            <div class="title-text">Medals per Country</div>
+        </div>
+    </div>
+
+    <div class="section-title">
+        <div class="stats-container">
+            <div class="title-box">
+                <div class="title-text">Number of JOs</div>
+                <div class="count">{{ numberOfJOs| async}}</div>
+            </div>
+
+            <div class="title-box">
+                <div class="title-text">Number of Countries</div>
+                <div class="count">{{ numberOfCountries | async }}</div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="section-title">
+        <div class="total-medals-container">
+            <div class="title-box">
+                <div class="title-text">Total of medals</div>
+                <div class="count">{{ totalMedals | async  }}</div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="divider">
+    
+    <div class="chart-container">
+        <ngx-charts-pie-chart
+            [view]="view"
+            [results]="chartData"
+            [gradient]="gradient"
+            [labels]="true"
+            [doughnut]="isDoughnut"
+            (select)="onSelect($event)">
+        </ngx-charts-pie-chart>
+    </div>
+
+    
+</div>
+</div>
+   

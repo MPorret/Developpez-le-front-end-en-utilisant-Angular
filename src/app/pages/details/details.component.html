@@ -1,0 +1,44 @@
+<div class="center">
+  
+  <div class="country-name">{{ countryname?.country  }}</div>
+
+      <div class="stats-container">
+        <div class="stat-box">
+          <div class="stat-label">Number of entries</div>
+          <div class="stat-value">{{ entredata | async }}</div>
+        </div>
+        
+        <div class="stat-box">
+          <div class="stat-label">Total number medals</div>
+          <div class="stat-value">{{ medaldata | async }}</div>
+        </div>
+ 
+        <div class="stat-box">
+          <div class="stat-label">Total number athletes</div>
+          <div class="stat-value">{{ participantdata | async }}</div>
+        </div>
+      </div>
+
+       <hr class="divider">
+
+      <div class="chart-container" *ngIf="lineChartData.length > 0">
+        <ngx-charts-line-chart
+          [view]="view"
+          [results]="lineChartData"
+          [gradient]="gradient"
+          [xAxis]="showXAxis"
+          [yAxis]="showYAxis"
+          [showXAxisLabel]="showXAxisLabel"
+          [showYAxisLabel]="showYAxisLabel"
+          [xAxisLabel]="xAxisLabel"
+          [yAxisLabel]="yAxisLabel">
+        </ngx-charts-line-chart>
+      </div>
+
+      <div class="back-button">
+        <button (click)="goBack()">← Back</button>
+      </div>
+  </div>
+
+
+ 

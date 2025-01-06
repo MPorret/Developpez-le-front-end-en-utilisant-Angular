@@ -1,8 +1,14 @@
-.center {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
+@import 'src/app/app.component.scss';
+
+//------------------------------------------------------------------------------------------------
+// Style for the Not Found Container
+//------------------------------------------------------------------------------------------------
+.not-found-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; // Takes full viewport height
+    justify-content: flex-start;
+    padding-top: 25vh;
+  }

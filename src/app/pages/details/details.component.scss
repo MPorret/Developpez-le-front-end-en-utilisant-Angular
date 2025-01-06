@@ -1,0 +1,58 @@
+@import 'src/app/app.component.scss';
+
+//------------------------------------------------------------------------------------------------
+// Styles for the country name display
+//------------------------------------------------------------------------------------------------
+      .country-name {
+        margin: 0 auto;
+        background-color: #008B8B;
+        color: white;
+        padding: 10px 30px;
+        border-radius: 25px;
+        font-size: 24px;
+        font-weight: bold;
+      }
+//------------------------------------------------------------------------------------------------
+// Styles for the container holding statistics
+//------------------------------------------------------------------------------------------------
+      .stats-container {
+        display: flex;
+        gap: 20px;  // Reduced gap between boxes
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 20px;  // Add some space from the header
+      }
+//------------------------------------------------------------------------------------------------
+// Styles for individual statistic boxes
+//------------------------------------------------------------------------------------------------
+      .stat-box {
+        border: 2px solid #008B8B;
+        border-radius: 8px;
+        padding: 12px;  // Reduced padding
+        min-width: 150px;  // Reduced width
+        text-align: center;
+        
+        //------------------------------------------------------------------------------------------------
+        // Styles for the label & Value inside the statistic box
+        //------------------------------------------------------------------------------------------------
+        .stat-label {
+          color: #666;
+          margin-bottom: 8px;  // Reduced margin
+          font-size: 14px;  // Reduced font size
+        }
+        
+        .stat-value {
+          color: #000;
+          font-size: 25px;  // Reduced font size
+          font-weight: bold;
+        }
+
+  }
+
+//------------------------------------------------------------------------------------------------
+// Size for the axis labels
+//------------------------------------------------------------------------------------------------
+::ng-deep .ngx-charts .axis text {
+  font-size: 100% !important;
+  font-weight: bold;
+}

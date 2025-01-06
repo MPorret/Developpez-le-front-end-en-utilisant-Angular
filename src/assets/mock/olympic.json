@@ -131,6 +131,13 @@
         "city": "Tokyo",
         "medalsCount": 33,
         "athleteCount": 403
+      },
+      {
+        "id": 4,
+        "year": 2024,
+        "city": "Paris",
+        "medalsCount": 33,
+        "athleteCount": 403
       }
     ]
   }
