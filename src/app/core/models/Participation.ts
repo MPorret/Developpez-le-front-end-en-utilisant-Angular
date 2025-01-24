@@ -9,3 +9,10 @@ example of participation:
     athleteCount: 372
 }
 */
+export interface Participation {
+    id: number;
+    year: number;
+    city: string;
+    medalsCount: number;
+    athleteCount: number;
+};
