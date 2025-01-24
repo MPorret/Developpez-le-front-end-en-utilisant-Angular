@@ -10,7 +10,7 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
 export class HomeComponent implements OnInit {
   public olympics$: Observable<any> = of(null);
 
-  constructor(private olympicService: OlympicService) {}
+  constructor(private readonly olympicService: OlympicService) {}
 
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
