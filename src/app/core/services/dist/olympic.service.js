@@ -10,6 +10,8 @@ exports.OlympicService = void 0;
 var core_1 = require("@angular/core");
 var rxjs_1 = require("rxjs");
 var operators_1 = require("rxjs/operators");
+// * JSDoc is a markup language used to annotate JavaScript code. It's used to document the codebase and provide additional information about the code.
+//! https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html?utm_source=chatgpt.com
 /**
  * Service responsible for fetching and managing Olympic data.
  */

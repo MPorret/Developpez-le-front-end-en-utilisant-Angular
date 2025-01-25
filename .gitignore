@@ -6,6 +6,7 @@
 /out-tsc
 /bazel-out
 /src/app/dist/
+/src/dist/
 
 
 # Node
