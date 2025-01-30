@@ -36,18 +36,15 @@ var OlympicService = /** @class */ (function () {
     /**
      * Loads the initial Olympic data from the JSON file.
      * On success, updates the olympics$ BehaviorSubject with the fetched data.
-     * On error, logs the error and updates olympics$ with an error message.
+     * On error, logs the error and updates olympics$ with a personal error message.
      * @returns {Observable<any>} An observable of the HTTP request.
      */
     OlympicService.prototype.loadInitialData = function () {
         var _this = this;
         return this.http.get(this.olympicUrl).pipe(operators_1.tap(function (value) { return _this.olympics$.next(value); }), operators_1.catchError(function (error) {
-            // Log the error for debugging purposes
             console.error('Error loading Olympic data:', error);
-            // Provide a user-friendly error message
             var friendlyErrorMessage = 'An error occurred while loading the Olympic data.';
             _this.olympics$.next({ error: friendlyErrorMessage });
-            // Return an observable with the user-friendly error message
             return rxjs_1.of({ error: friendlyErrorMessage });
         }));
     };
