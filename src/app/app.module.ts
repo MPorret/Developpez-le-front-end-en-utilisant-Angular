@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { OlympicService } from './core/services/olympic.service';
 
 // @https://stackoverflow.com/questions/78430636/httpclientmodule-is-deprecated-in-angular-18-whats-the-replacement
 
@@ -21,7 +20,7 @@ import { OlympicService } from './core/services/olympic.service';
 
   // This is where you provide services for all the components in the module
   //! Superseded by the already existing provideHttpClient() provider function
-  providers: [provideHttpClient(), OlympicService],
+  providers: [provideHttpClient()],
 
   // Told Angular to start with AppComponent
   // Angular shall create this component and insert it into the index.html (DOM)

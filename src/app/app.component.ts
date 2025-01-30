@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { take } from 'rxjs';
 import { OlympicService } from './core/services/olympic.service';
 
@@ -9,10 +9,18 @@ import { OlympicService } from './core/services/olympic.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   constructor(private olympicService: OlympicService) {}
+  public subscription: any;
 
   ngOnInit(): void {
-    this.olympicService.loadInitialData().pipe(take(1)).subscribe();
+   this.subscription = this.olympicService.loadInitialData().pipe(
+    // take is used to take the first n values emitted by the source observable and unsubscribe automatically after that.
+    take(1)).subscribe();
+  }
+
+  ngOnDestroy(): void {
+    // Clean up subscriptions
+    this.subscription.unsubscribe();
   }
 }

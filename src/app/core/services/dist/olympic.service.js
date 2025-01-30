@@ -31,29 +31,42 @@ var OlympicService = /** @class */ (function () {
          * BehaviorSubject holding the current state of Olympic data.
          * @private
          */
-        this.olympics$ = new rxjs_1.BehaviorSubject(undefined);
+        //! Must be instanciated with an empty array !
+        this.olympics$ = new rxjs_1.BehaviorSubject([]);
+        this.error$ = new rxjs_1.BehaviorSubject(null);
     }
     /**
-     * Loads the initial Olympic data from the JSON file.
-     * On success, updates the olympics$ BehaviorSubject with the fetched data.
-     * On error, logs the error and updates olympics$ with a personal error message.
-     * @returns {Observable<any>} An observable of the HTTP request.
+     * Fetches the initial Olympic data and updates the state and error message accordingly.
+     * @returns {Observable<Olympic[]>} An observable containing the Olympic data.
      */
     OlympicService.prototype.loadInitialData = function () {
         var _this = this;
-        return this.http.get(this.olympicUrl).pipe(operators_1.tap(function (value) { return _this.olympics$.next(value); }), operators_1.catchError(function (error) {
+        return this.http.get(this.olympicUrl).pipe(
+        // tap is used to perform side effects on the data emitted by the observable & returns an observable identical to the source.
+        operators_1.tap(function (value) {
+            _this.olympics$.next(value);
+            _this.error$.next(null);
+        }), operators_1.catchError(function (error) {
             console.error('Error loading Olympic data:', error);
-            var friendlyErrorMessage = 'An error occurred while loading the Olympic data.';
-            _this.olympics$.next({ error: friendlyErrorMessage });
-            return rxjs_1.of({ error: friendlyErrorMessage });
+            _this.olympics$.next([]);
+            _this.error$.next('An error occurred while loading the Olympic data.');
+            // of is used to create an observable that emits the values provided as arguments.
+            return rxjs_1.of([]);
         }));
     };
     /**
      * Returns an observable of the Olympic data.
-     * @returns {Observable<any>} An observable containing the Olympic data.
+     * @returns {Observable<Olympic[]>} An observable containing the Olympic data.
      */
     OlympicService.prototype.getOlympics = function () {
         return this.olympics$.asObservable();
+    };
+    /**
+     * Returns an observable of the error message.
+     * @returns {Observable<string | null>} An observable containing the error message.
+     */
+    OlympicService.prototype.getError = function () {
+        return this.error$.asObservable();
     };
     OlympicService = __decorate([
         core_1.Injectable({

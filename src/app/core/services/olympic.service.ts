@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { Olympic } from '../models/Olympic';
 
 // * JSDoc is a markup language used to annotate JavaScript code. It's used to document the codebase and provide additional information about the code.
 //! https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html?utm_source=chatgpt.com
@@ -23,7 +24,9 @@ export class OlympicService {
    * BehaviorSubject holding the current state of Olympic data.
    * @private
    */
-  private readonly olympics$ = new BehaviorSubject<any>(undefined);
+  //! Must be instanciated with an empty array !
+  private readonly olympics$ = new BehaviorSubject<Olympic[]>([]); 
+  private readonly error$ = new BehaviorSubject<string | null>(null);
 
   /**
    * Constructs the OlympicService.
@@ -32,31 +35,41 @@ export class OlympicService {
   constructor(private readonly http: HttpClient) {}
 
   /**
-   * Loads the initial Olympic data from the JSON file.
-   * On success, updates the olympics$ BehaviorSubject with the fetched data.
-   * On error, logs the error and updates olympics$ with a personal error message.
-   * @returns {Observable<any>} An observable of the HTTP request.
+   * Fetches the initial Olympic data and updates the state and error message accordingly.
+   * @returns {Observable<Olympic[]>} An observable containing the Olympic data.
    */
-  loadInitialData(): Observable<any> {
-    return this.http.get<any>(this.olympicUrl).pipe(
-      tap((value) => this.olympics$.next(value)),
+  loadInitialData(): Observable<Olympic[]> {
+    return this.http.get<Olympic[]>(this.olympicUrl).pipe(
+      // tap is used to perform side effects on the data emitted by the observable & returns an observable identical to the source.
+      tap((value) => {
+        this.olympics$.next(value);
+        this.error$.next(null); 
+      }),
       catchError((error) => {
         console.error('Error loading Olympic data:', error);
-
-        const friendlyErrorMessage =
-          'An error occurred while loading the Olympic data.';
-        this.olympics$.next({ error: friendlyErrorMessage });
-
-        return of({ error: friendlyErrorMessage });
+  
+        this.olympics$.next([]);
+        this.error$.next('An error occurred while loading the Olympic data.');
+        
+        // of is used to create an observable that emits the values provided as arguments.
+        return of([]);
       })
     );
   }
-
+  
   /**
    * Returns an observable of the Olympic data.
-   * @returns {Observable<any>} An observable containing the Olympic data.
+   * @returns {Observable<Olympic[]>} An observable containing the Olympic data.
    */
-  getOlympics(): Observable<any> {
+  getOlympics(): Observable<Olympic[]> {
     return this.olympics$.asObservable();
+  }
+
+  /**
+   * Returns an observable of the error message.
+   * @returns {Observable<string | null>} An observable containing the error message.
+   */
+  getError(): Observable<string | null> {
+    return this.error$.asObservable();
   }
 }

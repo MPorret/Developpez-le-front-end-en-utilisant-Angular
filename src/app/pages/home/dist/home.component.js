@@ -16,7 +16,9 @@ var HomeComponent = /** @class */ (function () {
     }
     HomeComponent.prototype.ngOnInit = function () {
         this.olympics$ = this.olympicService.getOlympics();
-        console.log(this.olympics$.subscribe());
+        this.olympics$.subscribe(function (data) {
+            console.log(data);
+        });
     };
     HomeComponent = __decorate([
         core_1.Component({
