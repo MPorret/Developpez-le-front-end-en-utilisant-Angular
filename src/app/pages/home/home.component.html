@@ -1,10 +1,10 @@
 <!-- ! Used | async pipe in the template to subscribe to the observables & display the data without needing to unsubscribe.  -->
- <!-- * https://angular.fr/pipes/async -->
+<!-- * https://angular.fr/pipes/async -->
 
 <section>
   <header>
     <h1>Medals per Country</h1>
-  
+
     <!-- Display the number of JO's and countries -->
     <section aria-labelledby="jo-info">
       <div id="jo-info" class="stats-container">
@@ -17,31 +17,28 @@
       </div>
     </section>
   </header>
-  
-  
+
+
   <!-- Error display if it comes out async fetch-->
   <div *ngIf="(error$ | async) as error">
     <p style="color: red;">{{ error }}</p>
     <button (click)="olympics$">Retry</button>
   </div>
-  
+
   <!-- Show data when it is fetched -->
-  <div *ngIf="(olympics$ | async) as olympics">
-    <h1>Olympic Data</h1>
-    <ul>
-      <li *ngFor="let country of olympics">
-        <h2>{{ country.country }}</h2>
-        <ul>
-          <li *ngFor="let participation of country.participations">
-            <p>Year: {{ participation.year }}</p>
-            <p>City: {{ participation.city }}</p>
-            <p>Medals: {{ participation.medalsCount }}</p>
-            <p>Athletes: {{ participation.athleteCount }}</p>
-          </li>
-        </ul>
-      </li>
-    </ul>>
-  </div>
+  <section *ngIf="(olympics$ | async) as olympics">
+    <div style="display: block;">
+      <canvas
+        baseChart
+        [data]="pieChartData"
+        [options]="pieChartOptions"
+        [legend]="pieChartLegend"
+        chartType="pieChartType">
+      </canvas>
+    </div>
+    
+    
+  </section>
 </section>
 
 <!-- Show loading message while data is being fetched -->

@@ -16,7 +16,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.olympicService
       .loadInitialData()
       .pipe(
-        // takeUntil is used to complete the observable when the provided observable(destroy$) emits a value. Actually waiting for the destroy$ observable to emit a value and then completing the source observable.
+        // takeUntil() is used to complete the observable when the provided observable(destroy$) emits a value. Actually waiting for the destroy$ observable to emit a value and then completing the source observable.
         takeUntil(this.destroy$)
       )
       .subscribe();

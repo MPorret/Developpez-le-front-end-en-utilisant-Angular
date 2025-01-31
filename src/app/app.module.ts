@@ -5,30 +5,25 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { LoaderComponent } from './core/loader/loader/loader.component';
+
+// * Import the NgxEchartsModule and echarts module
+import { NgxEchartsModule } from 'ngx-echarts';
+import * as echarts from 'echarts/core';
+import { BarChart } from 'echarts/charts';
+import { GridComponent } from 'echarts/components';
+import { CanvasRenderer } from 'echarts/renderers';
+echarts.use([BarChart, GridComponent, CanvasRenderer]);
+
+// * Import the provideCharts and withDefaultRegisterables functions from ng2-charts
 import { BaseChartDirective, provideCharts, withDefaultRegisterables } from 'ng2-charts';
-import { LoaderComponent } from "./core/loader/loader/loader.component";
 
-
-// @https://stackoverflow.com/questions/78430636/httpclientmodule-is-deprecated-in-angular-18-whats-the-replacement
-
-
-// This is a decorator function that takes a metadata object as an argument and applies it to the class it precedes (AppModule)
 @NgModule({
-  // This is where you declare components, directives and pipes
-  declarations: [AppComponent, HomeComponent, NotFoundComponent],
-
-  // This is where you import modules
-  //! HttpClientModule is now provided by the provideHttpClient() provider function --- Depecrated since Anuglar 18
-  imports: [BrowserModule, AppRoutingModule, BaseChartDirective, LoaderComponent],
-
-  // This is where you provide services for all the components in the module
-  //! Superseded by the already existing provideHttpClient() provider function
+  declarations: [AppComponent, HomeComponent, NotFoundComponent, LoaderComponent],
+  imports: [BrowserModule, AppRoutingModule, NgxEchartsModule.forRoot({ echarts }), BaseChartDirective],
   providers: [provideHttpClient(), provideCharts(withDefaultRegisterables())],
 
-  // Told Angular to start with AppComponent
-  // Angular shall create this component and insert it into the index.html (DOM)
   bootstrap: [AppComponent],
 })
 
-// This is the root module
 export class AppModule {}
