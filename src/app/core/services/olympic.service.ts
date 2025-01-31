@@ -93,7 +93,7 @@ export class OlympicService {
       map((olympics) =>
         olympics.reduce((acc, curr) => {
           acc += curr.participations.length;
-          return acc;
+          return acc
         }, 0)
       )
     );

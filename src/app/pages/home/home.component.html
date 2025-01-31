@@ -1,3 +1,6 @@
+<!-- ! Used | async pipe in the template to subscribe to the observables & display the data without needing to unsubscribe.  -->
+ <!-- * https://angular.fr/pipes/async -->
+
 <section>
   <header>
     <h1>Medals per Country</h1>
@@ -5,11 +8,11 @@
     <!-- Display the number of JO's and countries -->
     <section aria-labelledby="jo-info">
       <div id="jo-info" class="stats-container">
-        <div *ngIf="(getNumberOfParticipation$ | async) as getNumberOfParticipation" class="participation">
-          <p><strong>Number of JO's:</strong> <span>{{ getNumberOfParticipation }}</span></p>
+        <div *ngIf="(averageParticipations$ | async) as average" class="participation">
+          <p><strong>Number of JOs</strong> <span>{{ average }}</span></p>
         </div>
         <div *ngIf="(getNumberOfCountry$ | async) as getNumberOfCountry" class="country">
-          <p><strong>Number of Countries:</strong> <span>{{ getNumberOfCountry }}</span></p>
+          <p><strong>Number of Countries</strong> <span>{{ getNumberOfCountry }}</span></p>
         </div>
       </div>
     </section>
