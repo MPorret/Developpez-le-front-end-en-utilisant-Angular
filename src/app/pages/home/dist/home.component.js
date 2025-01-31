@@ -12,7 +12,7 @@ var rxjs_1 = require("rxjs");
 var HomeComponent = /** @class */ (function () {
     function HomeComponent(olympicService) {
         this.olympicService = olympicService;
-        this.olympics$ = rxjs_1.of(null);
+        this.olympics$ = rxjs_1.of([]);
     }
     HomeComponent.prototype.ngOnInit = function () {
         this.olympics$ = this.olympicService.getOlympics();

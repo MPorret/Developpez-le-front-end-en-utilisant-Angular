@@ -18,7 +18,7 @@ import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
   // This is where you import modules
   //! HttpClientModule is now provided by the provideHttpClient() provider function --- Depecrated since Anuglar 18
-  imports: [BrowserModule, AppRoutingModule, ChartsModule],
+  imports: [BrowserModule, AppRoutingModule],
 
   // This is where you provide services for all the components in the module
   //! Superseded by the already existing provideHttpClient() provider function
