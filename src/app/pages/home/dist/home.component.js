@@ -13,12 +13,22 @@ var HomeComponent = /** @class */ (function () {
     function HomeComponent(olympicService) {
         this.olympicService = olympicService;
         this.olympics$ = rxjs_1.of([]);
+        this.getNumberOfCountry$ = rxjs_1.of(0);
+        this.getNumberOfParticipation$ = rxjs_1.of(0);
         this.error$ = rxjs_1.of(null);
     }
     HomeComponent.prototype.ngOnInit = function () {
         this.olympics$ = this.olympicService.getOlympics();
+        this.getNumberOfCountry$ = this.olympicService.getNumberOfCountry();
+        this.getNumberOfParticipation$ = this.olympicService.getNumberOfParticipation();
         // Debugging the data
         this.olympics$.subscribe(function (data) {
+            console.log(data);
+        });
+        this.getNumberOfCountry$.subscribe(function (data) {
+            console.log(data);
+        });
+        this.getNumberOfParticipation$.subscribe(function (data) {
             console.log(data);
         });
         this.error$ = this.olympicService.getError();

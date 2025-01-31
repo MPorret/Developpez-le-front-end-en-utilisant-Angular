@@ -66,8 +66,27 @@ var OlympicService = /** @class */ (function () {
      * Returns an observable of the Olympic data for a specific country.
      * @param {string} country - The country for which to fetch the Olympic data.
      */
-    OlympicService.prototype.getOlympic = function (id) {
+    OlympicService.prototype.getOlympicById = function (id) {
         return this.olympics$.pipe(operators_1.map(function (olympics) { return olympics.find(function (o) { return o.id === id; }); }));
+    };
+    /**
+     * Returns an observable of the number of countries in the Olympic data.
+     * @returns {Observable<number>} An observable containing the number of countries.
+     */
+    OlympicService.prototype.getNumberOfCountry = function () {
+        return this.olympics$.pipe(operators_1.map(function (olympics) { return olympics.length; }));
+    };
+    /**
+     * Returns an observable of the number of participations in the Olympic data.
+     * @returns {Observable<number>} An observable containing the number of participations.
+     */
+    OlympicService.prototype.getNumberOfParticipation = function () {
+        return this.olympics$.pipe(operators_1.map(function (olympics) {
+            return olympics.reduce(function (acc, curr) {
+                acc += curr.participations.length;
+                return acc;
+            }, 0);
+        }));
     };
     /**
      * Returns an observable of the error message.

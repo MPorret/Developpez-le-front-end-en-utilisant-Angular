@@ -1,1 +1,54 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+  font-family: Roboto, Helvetica, sans-serif;
+  box-sizing: border-box;
+  scroll-behavior: smooth; // si visible
+  scrollbar-width: none;
+}
+
+:root {
+  --background-color: #FFFFFF;  /* Blanc */
+  --background-secondary-color: #03838F; /* Emeraude */
+  --button-background-color: #ffaa7a; /* Corail chaud */
+  --button-border-color: #ffdfd3; /* Beige rosé */
+  --text-color: #4b4e6d; /* Bleu-gris profond */
+  --text-secondary-color: var(--background-color); /* Blanc */
+  --germany-color: #793D52; /* Rouge foncé */
+  --united-states-color: #89A1DB; /* Bleu clair */
+  --france-color: #9780A1; /* Violet */
+  --spain-color: #B8CCE7; /* Bleu clair */
+  --italy-color: #956165; /* Marron */
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  min-width: 320px;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: 'Arial', sans-serif;
+}
+
+.card {
+  background-color: var(--card-background-color);
+}
+
+button {
+  background-color: var(--button-background-color);
+  border: 2px solid var(--button-border-color);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  &:hover {
+    background-color: var(--button-border-color);
+  }
+}
+
+h1, h2, h3, p {
+  color: var(--text-color);
+}

@@ -70,9 +70,32 @@ export class OlympicService {
    * Returns an observable of the Olympic data for a specific country.
    * @param {string} country - The country for which to fetch the Olympic data.
    */
-  getOlympic(id: number): Observable<Olympic | undefined> {
+  getOlympicById(id: number): Observable<Olympic | undefined> {
     return this.olympics$.pipe(
       map((olympics) => olympics.find((o) => o.id === id))
+    );
+  }
+
+  /**
+   * Returns an observable of the number of countries in the Olympic data.
+   * @returns {Observable<number>} An observable containing the number of countries.
+   */
+  getNumberOfCountry(): Observable<number> {
+    return this.olympics$.pipe(map((olympics) => olympics.length));
+  }
+
+  /**
+   * Returns an observable of the number of participations in the Olympic data.
+   * @returns {Observable<number>} An observable containing the number of participations.
+   */
+  getNumberOfParticipation(): Observable<number> {
+    return this.olympics$.pipe(
+      map((olympics) =>
+        olympics.reduce((acc, curr) => {
+          acc += curr.participations.length;
+          return acc;
+        }, 0)
+      )
     );
   }
 
