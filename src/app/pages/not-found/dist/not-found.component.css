@@ -14,39 +14,34 @@
   border-radius: 15px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   animation: fadeIn 1s ease-in-out;
-
-  h1 {
-    font-size: 6rem;
-    margin: 0;
-    color: #FFAAA7;
-    animation: bounce 1.5s infinite;
-  }
-
-  p {
-    font-size: 1.5rem;
-    margin: 1rem 0;
-    color: #4B4E6D;
-  }
-
-  button {
-    background-color: #FFAAA7;
-    color: #fff;
-    border: none;
-    padding: 0.8rem 1.5rem;
-    border-radius: 50px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-
-    &:hover {
-      background-color: #FFDFD3;
-      transform: scale(1.05);
-    }
-
-    &:active {
-      transform: scale(0.95);
-    }
-  }
+}
+.error-content h1 {
+  font-size: 6rem;
+  margin: 0;
+  color: #FFAAA7;
+  animation: bounce 1.5s infinite;
+}
+.error-content p {
+  font-size: 1.5rem;
+  margin: 1rem 0;
+  color: #4B4E6D;
+}
+.error-content button {
+  background-color: #FFAAA7;
+  color: #fff;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 50px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+.error-content button:hover {
+  background-color: #FFDFD3;
+  transform: scale(1.05);
+}
+.error-content button:active {
+  transform: scale(0.95);
 }
 
 @keyframes fadeIn {
@@ -59,7 +54,6 @@
     transform: translateY(0);
   }
 }
-
 @keyframes bounce {
   0%, 100% {
     transform: translateY(0);
@@ -68,24 +62,19 @@
     transform: translateY(-10px);
   }
 }
-
 /* Responsive Design */
 @media (max-width: 768px) {
   .error-content {
     padding: 1.5rem;
-
-    h1 {
-      font-size: 4rem;
-    }
-
-    p {
-      font-size: 1.2rem;
-    }
-
-    button {
-      font-size: 0.9rem;
-      padding: 0.7rem 1.2rem;
-    }
+  }
+  .error-content h1 {
+    font-size: 4rem;
+  }
+  .error-content p {
+    font-size: 1.2rem;
+  }
+  .error-content button {
+    font-size: 0.9rem;
+    padding: 0.7rem 1.2rem;
   }
 }
-
