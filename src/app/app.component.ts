@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription, take } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { OlympicService } from './core/services/olympic.service';
 
 @Component({
@@ -11,16 +11,23 @@ import { OlympicService } from './core/services/olympic.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
   constructor(private olympicService: OlympicService) {}
-  public subscription: Subscription = new Subscription();
+  // Subject is a special type of Observable in RxJS. It allows values to be multicasted to many Observers.
+  private readonly destroy$ = new Subject<void>();
 
   ngOnInit(): void {
-   this.subscription = this.olympicService.loadInitialData().pipe(
-    // take is used to take the first n values emitted by the source observable and unsubscribe automatically after that.
-    take(1)).subscribe();
+    this.olympicService
+      .loadInitialData()
+      .pipe(
+        // takeUntil is used to complete the observable when the provided observable(destroy$) emits a value. Actually waiting for the destroy$ observable to emit a value and then completing the source observable.
+        takeUntil(this.destroy$)
+      )
+      .subscribe();
   }
 
   ngOnDestroy(): void {
-    // Clean up subscriptions
-    this.subscription.unsubscribe();
+    // Used to inform all subscribers that the observable is completed.
+    this.destroy$.next();
+    // Used to release all resources used by the observable.
+    this.destroy$.complete();
   }
 }

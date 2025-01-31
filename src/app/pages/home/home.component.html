@@ -1,5 +1,12 @@
 <h2>Olympic games app</h2>
 <hr />
+
+<!-- Error display if it comes out async fetch-->
+<div *ngIf="(error$ | async) as error">
+  <p style="color: red;">{{ error }}</p>
+</div>
+
+<!-- Show data when it is fetched -->
 <div *ngIf="(olympics$ | async) as olympics">
   <h1>Olympic Data</h1>
   <ul>
@@ -14,7 +21,7 @@
         </li>
       </ul>
     </li>
-  </ul>
+  </ul>>
 </div>
 
 <!-- Show loading message while data is being fetched -->

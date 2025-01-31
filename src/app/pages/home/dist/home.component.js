@@ -13,12 +13,15 @@ var HomeComponent = /** @class */ (function () {
     function HomeComponent(olympicService) {
         this.olympicService = olympicService;
         this.olympics$ = rxjs_1.of([]);
+        this.error$ = rxjs_1.of(null);
     }
     HomeComponent.prototype.ngOnInit = function () {
         this.olympics$ = this.olympicService.getOlympics();
+        // Debugging the data
         this.olympics$.subscribe(function (data) {
             console.log(data);
         });
+        this.error$ = this.olympicService.getError();
     };
     HomeComponent = __decorate([
         core_1.Component({

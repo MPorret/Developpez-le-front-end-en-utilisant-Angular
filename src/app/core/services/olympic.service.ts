@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { Olympic } from '../models/Olympic';
 
 // * JSDoc is a markup language used to annotate JavaScript code. It's used to document the codebase and provide additional information about the code.
@@ -25,7 +25,7 @@ export class OlympicService {
    * @private
    */
   //! Must be instanciated with an empty array !
-  private readonly olympics$ = new BehaviorSubject<Olympic[]>([]); 
+  private readonly olympics$ = new BehaviorSubject<Olympic[]>([]);
   private readonly error$ = new BehaviorSubject<string | null>(null);
 
   /**
@@ -43,26 +43,37 @@ export class OlympicService {
       // tap is used to perform side effects on the data emitted by the observable & returns an observable identical to the source.
       tap((value) => {
         this.olympics$.next(value);
-        this.error$.next(null); 
+        this.error$.next(null);
       }),
       catchError((error) => {
         console.error('Error loading Olympic data:', error);
-  
+
         this.olympics$.next([]);
         this.error$.next('An error occurred while loading the Olympic data.');
-        
+
         // of is used to create an observable that emits the values provided as arguments.
         return of([]);
       })
     );
   }
-  
+
   /**
    * Returns an observable of the Olympic data.
    * @returns {Observable<Olympic[]>} An observable containing the Olympic data.
    */
   getOlympics(): Observable<Olympic[]> {
+    // asObservable() is used to return an observable of the BehaviorSubject & prevents direct access to the BehaviorSubject.
     return this.olympics$.asObservable();
+  }
+
+  /**
+   * Returns an observable of the Olympic data for a specific country.
+   * @param {string} country - The country for which to fetch the Olympic data.
+   */
+  getOlympic(id: number): Observable<Olympic | undefined> {
+    return this.olympics$.pipe(
+      map((olympics) => olympics.find((o) => o.id === id))
+    );
   }
 
   /**

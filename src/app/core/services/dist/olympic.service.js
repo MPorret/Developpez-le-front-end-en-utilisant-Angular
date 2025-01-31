@@ -59,7 +59,15 @@ var OlympicService = /** @class */ (function () {
      * @returns {Observable<Olympic[]>} An observable containing the Olympic data.
      */
     OlympicService.prototype.getOlympics = function () {
+        // asObservable() is used to return an observable of the BehaviorSubject & prevents direct access to the BehaviorSubject.
         return this.olympics$.asObservable();
+    };
+    /**
+     * Returns an observable of the Olympic data for a specific country.
+     * @param {string} country - The country for which to fetch the Olympic data.
+     */
+    OlympicService.prototype.getOlympic = function (id) {
+        return this.olympics$.pipe(operators_1.map(function (olympics) { return olympics.find(function (o) { return o.id === id; }); }));
     };
     /**
      * Returns an observable of the error message.
