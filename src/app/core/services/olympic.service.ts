@@ -93,37 +93,9 @@ export class OlympicService {
       map((olympics) =>
         olympics.reduce((acc, curr) => {
           acc += curr.participations.length;
-          return acc
+          return acc;
         }, 0)
       )
-    );
-  }
-
-  /**
-   * Returns an observable of the average number of participations per country.
-   * @returns {Observable<number>} An observable containing the average number of participations per country.
-   */
-  getPieChartLabels(): Observable<string[]> {
-    return this.olympics$.pipe(
-      map((olympics) => olympics.map((o) => o.country)),
-      catchError(() => of([]))
-    );
-  }
-
-  /** 
-   * Returns an observable of the pie chart data for a specific country.
-   * @param {number} id - The id of the country for which to fetch the pie chart data.
-   * @returns {Observable<number[]>} An observable containing the pie chart data.
-    */
-  getPieChartDataByCountry(id: number): Observable<number[]> {
-    return this.olympics$.pipe(
-      map((olympics) => {
-        const olympic = olympics.find((o) => o.id === id);
-        if (olympic) {
-          return olympic.participations.map((p) => p.medalsCount);
-        }
-        return [];
-      })
     );
   }
 

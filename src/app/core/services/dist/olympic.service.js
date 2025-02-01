@@ -89,27 +89,6 @@ var OlympicService = /** @class */ (function () {
         }));
     };
     /**
-     * Returns an observable of the average number of participations per country.
-     * @returns {Observable<number>} An observable containing the average number of participations per country.
-     */
-    OlympicService.prototype.getPieChartLabels = function () {
-        return this.olympics$.pipe(operators_1.map(function (olympics) { return olympics.map(function (o) { return o.country; }); }), operators_1.catchError(function () { return rxjs_1.of([]); }));
-    };
-    /**
-     * Returns an observable of the pie chart data for a specific country.
-     * @param {number} id - The id of the country for which to fetch the pie chart data.
-     * @returns {Observable<number[]>} An observable containing the pie chart data.
-      */
-    OlympicService.prototype.getPieChartDataByCountry = function (id) {
-        return this.olympics$.pipe(operators_1.map(function (olympics) {
-            var olympic = olympics.find(function (o) { return o.id === id; });
-            if (olympic) {
-                return olympic.participations.map(function (p) { return p.medalsCount; });
-            }
-            return [];
-        }));
-    };
-    /**
      * Returns an observable of the error message.
      * @returns {Observable<string | null>} An observable containing the error message.
      */

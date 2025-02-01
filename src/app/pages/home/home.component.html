@@ -27,17 +27,14 @@
 
   <!-- Show data when it is fetched -->
   <section *ngIf="(olympics$ | async) as olympics">
-    <div style="display: block;">
+    <div class="chart-container" style="display: block;">
       <canvas
         baseChart
         [data]="pieChartData"
         [options]="pieChartOptions"
-        [legend]="pieChartLegend"
-        chartType="pieChartType">
+        [legend]="pieChartLegend">
       </canvas>
     </div>
-    
-    
   </section>
 </section>
 

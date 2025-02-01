@@ -77,3 +77,13 @@ header h1 {
   font-weight: 700;
   font-size: 1rem;
 }
+
+.chart-container {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  margin: 4rem 0 0 0;
+  width: 30vw;
+  height: 30vw;
+  padding: 1rem;
+}

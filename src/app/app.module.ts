@@ -7,7 +7,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { LoaderComponent } from './core/loader/loader/loader.component';
 
-// * Import the NgxEchartsModule and echarts module
+// Import the NgxEchartsModule and echarts module
 import { NgxEchartsModule } from 'ngx-echarts';
 import * as echarts from 'echarts/core';
 import { BarChart } from 'echarts/charts';
@@ -15,7 +15,7 @@ import { GridComponent } from 'echarts/components';
 import { CanvasRenderer } from 'echarts/renderers';
 echarts.use([BarChart, GridComponent, CanvasRenderer]);
 
-// * Import the provideCharts and withDefaultRegisterables functions from ng2-charts
+// Import the provideCharts and withDefaultRegisterables functions from ng2-charts
 import { BaseChartDirective, provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 @NgModule({

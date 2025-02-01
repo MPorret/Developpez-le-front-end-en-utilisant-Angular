@@ -66,3 +66,14 @@ header {
 .country {
   @include common-style(0, 1rem); 
 }
+
+
+.chart-container {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  margin: 4rem 0 0 0;
+  width: 30vw;
+  height: 30vw;
+  padding: 1rem;
+}
