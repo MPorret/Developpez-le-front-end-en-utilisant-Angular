@@ -4,6 +4,7 @@ import { Olympic } from 'src/app/core/models/Olympic';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { HomeChartService } from 'src/app/core/services/home-chart.service';
 import { BaseChartDirective } from 'ng2-charts';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -24,8 +25,15 @@ import { BaseChartDirective } from 'ng2-charts';
  ** https://angular.fr/pipes/async
  */
 export class HomeComponent implements OnInit {
+  // Angular shall directly look after an instance of BaseChartDirective (chich is naturally the "canvas" containing pie chart)
+  // Give also a reference to the chart component (to call this.chart.update())
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
-  private readonly susbcriptions: Subscription = new Subscription();
+
+  // Subscription to encapsulate different subscription and easily unsubscribe when it takes over inside ngOnDestroy()
+  private readonly subscription: Subscription = new Subscription();
+
+  // ids & countries storage for routing
+  public countries: { id: number; country: string }[] = [];
 
   // Define the properties for the observables
   public olympics$!: Observable<Olympic[]>;
@@ -43,13 +51,14 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private readonly olympicService: OlympicService,
+    private readonly router: Router,
     private readonly homeChartService: HomeChartService
   ) {}
 
   ngOnInit(): void {
     this.fetchData();
-    // Subscribe to observable for retrieving and update chartData
-    this.susbcriptions.add(
+    // Subscription for retrieving chart labels
+    this.subscription.add(
       this.homeChartService
         .getPieChartLabels()
         .subscribe((labels: string[]) => {
@@ -60,7 +69,8 @@ export class HomeComponent implements OnInit {
         })
     );
 
-    this.susbcriptions.add(
+    // Subscription for retrieving charts medals data
+    this.subscription.add(
       this.homeChartService
         .getPieMedalsByCountry()
         .subscribe((medals: number[]) => {
@@ -70,6 +80,16 @@ export class HomeComponent implements OnInit {
             this.chart.update();
           }
         })
+    );
+
+    // Susbcription for retrieving country list and their {id, name}
+    this.subscription.add(
+      this.olympicService.getOlympics().subscribe((olympics: Olympic[]) => {
+        this.countries = olympics.map((o) => ({
+          id: o.id,
+          country: o.country,
+        }));
+      })
     );
 
     this.pieChartData = this.homeChartService.pieChartData;
@@ -95,8 +115,29 @@ export class HomeComponent implements OnInit {
     );
   }
 
+  /**
+   * Method called once there is a click on a pie chart
+   * Retrieve pie index and navigate to selcted country page.
+   * @param {any} event - event used to retrieve data to transfer to the country page
+   */
+  onChartClick(event: any): void {
+    if (event.active && event.active.length > 0) {
+      // event.active[0] contains selected informations once clicked
+      // with "active" property
+      const chartElement = event.active[0];
+      const index = chartElement.index;
+
+      // Retrieved country linked to id
+      const selectedCountry = this.countries[index];
+      if (selectedCountry) {
+        // Navigate to URL '/country/<id>' by modifying the URL self
+        this.router.navigate(['/country', selectedCountry.id]);
+      }
+    }
+  }
+
   retry(): void {
     this.fetchData();
-    this.susbcriptions.unsubscribe();
+    this.subscription.unsubscribe();
   }
 }

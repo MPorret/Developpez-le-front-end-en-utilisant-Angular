@@ -32,7 +32,8 @@
         baseChart
         [data]="pieChartData"
         [options]="pieChartOptions"
-        [legend]="pieChartLegend">
+        [legend]="pieChartLegend"
+        (chartClick)="onChartClick($event)">
       </canvas>
     </div>
   </section>

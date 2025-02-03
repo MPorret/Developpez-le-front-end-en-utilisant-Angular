@@ -29,15 +29,13 @@ export class HomeChartService {
   getPieMedalsByCountry(): Observable<number[]> {
     return this.olympicService.getOlympics().pipe(
       map((olympics) =>
-        olympics.map(o =>
+        olympics.map((o) =>
           o.participations.reduce((acc, curr) => acc + curr.medalsCount, 0)
         )
       ),
       catchError(() => of([]))
     );
   }
-  
-  
 
   /**
    * Returns the value of a CSS variable.

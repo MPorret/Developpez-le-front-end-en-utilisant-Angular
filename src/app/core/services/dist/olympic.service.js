@@ -63,13 +63,6 @@ var OlympicService = /** @class */ (function () {
         return this.olympics$.asObservable();
     };
     /**
-     * Returns an observable of the Olympic data for a specific country.
-     * @param {string} country - The country for which to fetch the Olympic data.
-     */
-    OlympicService.prototype.getOlympicById = function (id) {
-        return this.olympics$.pipe(operators_1.map(function (olympics) { return olympics.find(function (o) { return o.id === id; }); }));
-    };
-    /**
      * Returns an observable of the number of countries in the Olympic data.
      * @returns {Observable<number>} An observable containing the number of countries.
      */
