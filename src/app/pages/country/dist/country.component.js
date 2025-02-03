@@ -8,26 +8,32 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 exports.__esModule = true;
 exports.CountryComponent = void 0;
 var core_1 = require("@angular/core");
+var rxjs_1 = require("rxjs");
+var operators_1 = require("rxjs/operators");
 var CountryComponent = /** @class */ (function () {
-    function CountryComponent(route) {
+    function CountryComponent(route, olympicService) {
         this.route = route;
+        this.olympicService = olympicService;
     }
     CountryComponent.prototype.ngOnInit = function () {
         var _this = this;
-        // Retrieved Id from URL
-        this.route.paramMap.subscribe(function (params) {
+        // Retrieve the country ID from the route parameters and fetch the corresponding country data
+        // * paramMap is an observable that contains a map of the required and optional parameters specific to the route.
+        // * switchMap is used to map the value from the source observable to a new observable.
+        this.countryData$ = this.route.paramMap.pipe(operators_1.switchMap(function (params) {
             var idParam = params.get('id');
             if (idParam) {
-                _this.countryId = +idParam;
-                // Ici vous pouvez appeler un service pour récupérer et traiter les données du pays concerné
+                var countryId = +idParam;
+                return _this.olympicService.getOlympicById(countryId);
             }
-        });
+            return rxjs_1.of(undefined);
+        }));
     };
     CountryComponent = __decorate([
         core_1.Component({
             selector: 'app-country',
             templateUrl: './country.component.html',
-            styleUrl: './country.component.scss'
+            styleUrls: ['./country.component.scss']
         })
     ], CountryComponent);
     return CountryComponent;

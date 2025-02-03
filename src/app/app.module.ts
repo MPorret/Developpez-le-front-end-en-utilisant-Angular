@@ -17,10 +17,12 @@ echarts.use([BarChart, GridComponent, CanvasRenderer]);
 
 // Import the provideCharts and withDefaultRegisterables functions from ng2-charts
 import { BaseChartDirective, provideCharts, withDefaultRegisterables } from 'ng2-charts';
+import { CountryComponent } from './pages/country/country.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, NotFoundComponent, LoaderComponent],
-  imports: [BrowserModule, AppRoutingModule, NgxEchartsModule.forRoot({ echarts }), BaseChartDirective],
+  declarations: [AppComponent, HomeComponent, CountryComponent, NotFoundComponent, LoaderComponent],
+  imports: [CommonModule, BrowserModule, AppRoutingModule, NgxEchartsModule.forRoot({ echarts }), BaseChartDirective],
   providers: [provideHttpClient(), provideCharts(withDefaultRegisterables())],
 
   bootstrap: [AppComponent],

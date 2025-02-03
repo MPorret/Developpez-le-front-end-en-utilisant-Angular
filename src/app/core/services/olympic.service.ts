@@ -67,6 +67,16 @@ export class OlympicService {
   }
 
   /**
+   * Returns an observable of the Olympic data for a specific country.
+   * @param {string} country - The country for which to fetch the Olympic data.
+   */
+  getOlympicById(id: number): Observable<Olympic | undefined> {
+    return this.olympics$.pipe(
+      map((olympics) => olympics.find((o) => o.id === id))
+    );
+  }
+
+  /**
    * Returns an observable of the number of countries in the Olympic data.
    * @returns {Observable<number>} An observable containing the number of countries.
    */

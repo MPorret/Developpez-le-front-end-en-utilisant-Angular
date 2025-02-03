@@ -56,7 +56,9 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // Retrieve data from Olympic Service
     this.fetchData();
+
     // Subscription for retrieving chart labels
     this.subscription.add(
       this.homeChartService

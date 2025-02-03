@@ -1,1 +1,9 @@
-<p>country works!</p>
+<div *ngIf="countryData$ | async as country; else loading">
+  <h1>{{ country?.country }}</h1>
+  <p>Nombre de participations : {{ country?.participations?.length }}</p>
+  <!-- Affichez ici d'autres informations ou un graphique en fonction des données -->
+</div>
+
+<ng-template #loading>
+  <p>Chargement des données...</p>
+</ng-template>

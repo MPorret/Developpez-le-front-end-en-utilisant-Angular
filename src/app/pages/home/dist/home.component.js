@@ -23,6 +23,7 @@ var HomeComponent = /** @class */ (function () {
     }
     HomeComponent.prototype.ngOnInit = function () {
         var _this = this;
+        // Retrieve data from Olympic Service
         this.fetchData();
         // Subscription for retrieving chart labels
         this.subscription.add(this.homeChartService
