@@ -15,10 +15,10 @@ var HomeChartService = /** @class */ (function () {
         this.olympicService = olympicService;
         // Define the properties for the pie chart
         this.pieChartData = {
-            labels: ['Label 1', 'Label 2', 'Label 3', 'Label 4', 'Label 5'],
+            labels: [],
             datasets: [
                 {
-                    data: [30, 50, 20, 60, 75],
+                    data: [],
                     type: 'pie',
                     label: '$',
                     hidden: false,
@@ -45,7 +45,7 @@ var HomeChartService = /** @class */ (function () {
                     weight: 1,
                     borderColor: 'none',
                     borderWidth: 0,
-                    hoverBorderColor: 'black',
+                    hoverBorderColor: 'white',
                     hoverBorderWidth: 1,
                     backgroundColor: [
                         this.getCssVariableValue('--italy-color'),
@@ -53,13 +53,6 @@ var HomeChartService = /** @class */ (function () {
                         this.getCssVariableValue('--united-states-color'),
                         this.getCssVariableValue('--germany-color'),
                         this.getCssVariableValue('--france-color'),
-                    ],
-                    hoverBackgroundColor: [
-                        'rgba(255, 99, 132, 0.4)',
-                        'rgba(54, 162, 235, 0.4)',
-                        'rgba(255, 206, 86, 0.4)',
-                        'rgba(75, 192, 192, 0.4)',
-                        'rgba(153, 102, 255, 0.4)',
                     ]
                 },
             ],
@@ -95,10 +88,11 @@ var HomeChartService = /** @class */ (function () {
      * @param {number} id - The id of the country for which to fetch the pie chart data.
      * @returns {Observable<number[]>} An observable containing the pie chart data.
      */
-    HomeChartService.prototype.getPieChartDataByCountry = function (id) {
+    HomeChartService.prototype.getPieMedalsByCountry = function () {
         return this.olympicService.getOlympics().pipe(operators_1.map(function (olympics) {
-            var olympic = olympics.find(function (o) { return o.id === id; });
-            return olympic ? olympic.participations.map(function (p) { return p.medalsCount; }) : [];
+            return olympics.map(function (o) {
+                return o.participations.reduce(function (acc, curr) { return acc + curr.medalsCount; }, 0);
+            });
         }), operators_1.catchError(function () { return rxjs_1.of([]); }));
     };
     /**

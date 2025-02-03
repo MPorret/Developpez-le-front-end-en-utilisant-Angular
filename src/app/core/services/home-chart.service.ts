@@ -26,15 +26,18 @@ export class HomeChartService {
    * @param {number} id - The id of the country for which to fetch the pie chart data.
    * @returns {Observable<number[]>} An observable containing the pie chart data.
    */
-  getPieChartDataByCountry(id: number): Observable<number[]> {
+  getPieMedalsByCountry(): Observable<number[]> {
     return this.olympicService.getOlympics().pipe(
-      map((olympics) => {
-        const olympic = olympics.find((o) => o.id === id);
-        return olympic ? olympic.participations.map((p) => p.medalsCount) : [];
-      }),
+      map((olympics) =>
+        olympics.map(o =>
+          o.participations.reduce((acc, curr) => acc + curr.medalsCount, 0)
+        )
+      ),
       catchError(() => of([]))
     );
   }
+  
+  
 
   /**
    * Returns the value of a CSS variable.
@@ -49,10 +52,10 @@ export class HomeChartService {
 
   // Define the properties for the pie chart
   public pieChartData: ChartData<'pie', number[], string | string[]> = {
-    labels: ['Label 1', 'Label 2', 'Label 3', 'Label 4', 'Label 5'],
+    labels: [], // filled inside the OnInit component method.
     datasets: [
       {
-        data: [30, 50, 20, 60, 75], //  Data for the pie chart
+        data: [], //  Data for the pie chart
         type: 'pie', // Type of the dataset
         label: '$', // Label for the dataset
         hidden: false, // Show the dataset by default
@@ -79,7 +82,7 @@ export class HomeChartService {
         weight: 1, // Weight of the dataset in the chart
         borderColor: 'none',
         borderWidth: 0,
-        hoverBorderColor: 'black',
+        hoverBorderColor: 'white',
         hoverBorderWidth: 1,
         backgroundColor: [
           this.getCssVariableValue('--italy-color'),
@@ -87,13 +90,6 @@ export class HomeChartService {
           this.getCssVariableValue('--united-states-color'),
           this.getCssVariableValue('--germany-color'),
           this.getCssVariableValue('--france-color'),
-        ],
-        hoverBackgroundColor: [
-          'rgba(255, 99, 132, 0.4)',
-          'rgba(54, 162, 235, 0.4)',
-          'rgba(255, 206, 86, 0.4)',
-          'rgba(75, 192, 192, 0.4)',
-          'rgba(153, 102, 255, 0.4)',
         ],
       },
     ],

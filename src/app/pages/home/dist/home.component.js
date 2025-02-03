@@ -9,14 +9,35 @@ exports.__esModule = true;
 exports.HomeComponent = void 0;
 var core_1 = require("@angular/core");
 var rxjs_1 = require("rxjs");
+var ng2_charts_1 = require("ng2-charts");
 var HomeComponent = /** @class */ (function () {
     function HomeComponent(olympicService, homeChartService) {
         this.olympicService = olympicService;
         this.homeChartService = homeChartService;
+        this.susbcriptions = new rxjs_1.Subscription();
         this.pieChartLegend = false;
     }
     HomeComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.fetchData();
+        // Subscribe to observable for retrieving and update chartData
+        this.susbcriptions.add(this.homeChartService
+            .getPieChartLabels()
+            .subscribe(function (labels) {
+            _this.homeChartService.pieChartData.labels = labels;
+            if (_this.chart) {
+                _this.chart.update();
+            }
+        }));
+        this.susbcriptions.add(this.homeChartService
+            .getPieMedalsByCountry()
+            .subscribe(function (medals) {
+            _this.homeChartService.pieChartData.datasets[0].data = medals;
+            console.log(medals);
+            if (_this.chart) {
+                _this.chart.update();
+            }
+        }));
         this.pieChartData = this.homeChartService.pieChartData;
         this.pieChartOptions = this.homeChartService.pieChartOptions;
         this.pieChartPlugins = this.homeChartService.pieChartPlugins;
@@ -38,7 +59,11 @@ var HomeComponent = /** @class */ (function () {
     };
     HomeComponent.prototype.retry = function () {
         this.fetchData();
+        this.susbcriptions.unsubscribe();
     };
+    __decorate([
+        core_1.ViewChild(ng2_charts_1.BaseChartDirective)
+    ], HomeComponent.prototype, "chart");
     HomeComponent = __decorate([
         core_1.Component({
             selector: 'app-home',

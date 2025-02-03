@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { combineLatest, map, Observable } from 'rxjs';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { combineLatest, map, Observable, Subscription } from 'rxjs';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { OlympicService } from 'src/app/core/services/olympic.service';
-import { ChartOptions, ChartData, ChartType } from 'chart.js';
 import { HomeChartService } from 'src/app/core/services/home-chart.service';
+import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
   selector: 'app-home',
@@ -24,6 +24,9 @@ import { HomeChartService } from 'src/app/core/services/home-chart.service';
  ** https://angular.fr/pipes/async
  */
 export class HomeComponent implements OnInit {
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
+  private readonly susbcriptions: Subscription = new Subscription();
+
   // Define the properties for the observables
   public olympics$!: Observable<Olympic[]>;
   public getNumberOfCountry$!: Observable<number>;
@@ -45,6 +48,30 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchData();
+    // Subscribe to observable for retrieving and update chartData
+    this.susbcriptions.add(
+      this.homeChartService
+        .getPieChartLabels()
+        .subscribe((labels: string[]) => {
+          this.homeChartService.pieChartData.labels = labels;
+          if (this.chart) {
+            this.chart.update();
+          }
+        })
+    );
+
+    this.susbcriptions.add(
+      this.homeChartService
+        .getPieMedalsByCountry()
+        .subscribe((medals: number[]) => {
+          this.homeChartService.pieChartData.datasets[0].data = medals;
+          console.log(medals);
+          if (this.chart) {
+            this.chart.update();
+          }
+        })
+    );
+
     this.pieChartData = this.homeChartService.pieChartData;
     this.pieChartOptions = this.homeChartService.pieChartOptions;
     this.pieChartPlugins = this.homeChartService.pieChartPlugins;
@@ -70,5 +97,6 @@ export class HomeComponent implements OnInit {
 
   retry(): void {
     this.fetchData();
+    this.susbcriptions.unsubscribe();
   }
 }
