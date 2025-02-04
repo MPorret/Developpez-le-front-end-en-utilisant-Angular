@@ -1,8 +1,8 @@
 :host {
   flex: 1 1 auto;
   display: flex;
-  align-items: center;  
-  justify-content: center; 
+  align-items: center;
+  justify-content: center;
   width: 100%;
   box-sizing: border-box;
 }
@@ -60,13 +60,12 @@ header {
 }
 
 .participation {
-  @include common-style(1rem, 0); 
+  @include common-style(1rem, 0);
 }
 
 .country {
-  @include common-style(0, 1rem); 
+  @include common-style(0, 1rem);
 }
-
 
 .chart-container {
   display: flex;
@@ -76,4 +75,7 @@ header {
   width: 30vw;
   height: 30vw;
   padding: 1rem;
+  canvas {
+    cursor: pointer;
+  }
 }

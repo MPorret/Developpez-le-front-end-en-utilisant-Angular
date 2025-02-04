@@ -39,7 +39,6 @@ var HomeComponent = /** @class */ (function () {
             .getPieMedalsByCountry()
             .subscribe(function (medals) {
             _this.homeChartService.pieChartData.datasets[0].data = medals;
-            console.log(medals);
             if (_this.chart) {
                 _this.chart.update();
             }

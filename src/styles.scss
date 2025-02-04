@@ -7,20 +7,21 @@
 }
 
 :root {
-  --background-color: #FFFFFF;  /* Blanc */
-  --background-secondary-color: #03838F; /* Emeraude */
+  --background-color: #ffffff; /* Blanc */
+  --background-secondary-color: #03838f; /* Emeraude */
   --button-background-color: #ffaa7a; /* Corail chaud */
   --button-border-color: #ffdfd3; /* Beige rosé */
   --text-color: #4b4e6d; /* Bleu-gris profond */
   --text-secondary-color: var(--background-color); /* Blanc */
-  --germany-color: #793D52; /* Rouge foncé */
-  --united-states-color: #89A1DB; /* Bleu clair */
-  --france-color: #9780A1; /* Violet */
-  --spain-color: #B8CCE7; /* Bleu clair */
+  --germany-color: #793d52; /* Rouge foncé */
+  --united-states-color: #89a1db; /* Bleu clair */
+  --france-color: #9780a1; /* Violet */
+  --spain-color: #b8cce7; /* Bleu clair */
   --italy-color: #956165; /* Marron */
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -31,7 +32,7 @@ html, body {
 body {
   background-color: var(--background-color);
   color: var(--text-color);
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
 }
 
 .card {
@@ -49,6 +50,9 @@ button {
   }
 }
 
-h1, h2, h3, p {
+h1,
+h2,
+h3,
+p {
   color: var(--text-color);
 }

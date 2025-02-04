@@ -48,7 +48,15 @@ export class HomeChartService {
     );
   }
 
-  // Define the properties for the pie chart
+  /**
+   * Chart.js data object for the pie chart.
+   * @type {ChartData<'pie', number[], string | string[]>}
+   * @public
+   * @memberof HomeChartService
+   * @description The data object for the pie chart.
+   * @property {string[]} labels - The labels for the pie chart.
+   * @property {ChartDataSets<'pie', number[], string | string[]>[]} datasets - The datasets for the pie chart. Each dataset represents a country.
+   */
   public pieChartData: ChartData<'pie', number[], string | string[]> = {
     labels: [], // filled inside the OnInit component method.
     datasets: [
@@ -91,24 +99,14 @@ export class HomeChartService {
         ],
       },
     ],
-    // xLabels and yLabels are used to display the labels on the x-axis and y-axis respectively
-    xLabels: ['Label 1', 'Label 2', 'Label 3', 'Label 4', 'Label 5'],
-    yLabels: ['Label 1', 'Label 2', 'Label 3', 'Label 4', 'Label 5'],
   };
 
+  
   public pieChartLegend = false;
   public pieChartOptions: ChartOptions<'pie'> = {
     responsive: true,
     maintainAspectRatio: false,
   };
   public pieChartType: ChartType = 'pie';
-  public pieChartPlugins = [
-    {
-      beforeDraw(chart: any) {
-        const ctx = chart.ctx;
-        ctx.fillStyle = 'white';
-        ctx.fillRect(0, 0, chart.width, chart.height);
-      },
-    },
-  ];
+
 }

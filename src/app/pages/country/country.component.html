@@ -1,9 +1,38 @@
-<div *ngIf="countryData$ | async as country; else loading">
-  <h1>{{ country?.country }}</h1>
-  <p>Nombre de participations : {{ country?.participations?.length }}</p>
-  <!-- Affichez ici d'autres informations ou un graphique en fonction des données -->
+<div class="main" *ngIf="countryData$ | async as country; else loading">
+  <header>
+    <h1>{{ country.country }}</h1>
+    <section aria-labelledby="jo-info">
+      <div id="jo-info" class="stats-container">
+        <div class="participations">
+          <p>
+            <strong>Nombre de participations</strong>
+            <span>{{ totalParticipations }}</span>
+          </p>
+        </div>
+        <div class="medals">
+          <p>
+            <strong>Total des médailles</strong> <span>{{ totalMedals }}</span>
+          </p>
+        </div>
+        <div class="athletes">
+          <p>
+            <strong>Total des athlètes</strong> <span>{{ totalAthletes }}</span>
+          </p>
+        </div>
+      </div>
+    </section>
+  </header>
+
+  <!-- Graphique en ligne -->
+  <div class="chart-container" style="display: block">
+    <canvas baseChart [data]="lineChartData" [options]="lineChartOptions">
+    </canvas>
+  </div>
+  <button routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+    <a routerLink="">Home</a>
+  </button>
 </div>
 
-<ng-template #loading>
+<ng-template class="loading" #loading>
   <p>Chargement des données...</p>
 </ng-template>

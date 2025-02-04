@@ -7,6 +7,16 @@
   box-sizing: border-box;
 }
 
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
 header {
   display: flex;
   flex-direction: column;
@@ -34,46 +44,68 @@ header h1 {
   box-sizing: border-box;
 }
 
-.participation {
+.participations {
   margin: 0 1rem 0 0;
   padding: 0.5rem 1rem;
   border: 2px solid var(--background-secondary-color);
   border-radius: 10px;
 }
-.participation p {
+.participations p {
   margin: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.participation p strong {
+.participations p strong {
   font-weight: 300;
   font-size: 1rem;
   margin-bottom: 0.5rem;
 }
-.participation p span {
+.participations p span {
   font-weight: 700;
   font-size: 1rem;
 }
 
-.country {
+.medals {
+  margin: 0 1rem 0 1rem;
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--background-secondary-color);
+  border-radius: 10px;
+}
+.medals p {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.medals p strong {
+  font-weight: 300;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+.medals p span {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.athletes {
   margin: 0 0 0 1rem;
   padding: 0.5rem 1rem;
   border: 2px solid var(--background-secondary-color);
   border-radius: 10px;
 }
-.country p {
+.athletes p {
   margin: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.country p strong {
+.athletes p strong {
   font-weight: 300;
   font-size: 1rem;
   margin-bottom: 0.5rem;
 }
-.country p span {
+.athletes p span {
   font-weight: 700;
   font-size: 1rem;
 }
@@ -87,6 +119,22 @@ header h1 {
   height: 30vw;
   padding: 1rem;
 }
-.chart-container canvas {
+
+button {
+  margin: 1rem 0;
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--button-border-color);
+  border-radius: 30px;
+  background-color: var(--button-background-color);
+  color: var(--text-color);
   cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+button:hover {
+  background-color: var(--button-border-color);
+}
+button a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-size: large;
 }

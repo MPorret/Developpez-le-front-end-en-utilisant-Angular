@@ -1,0 +1,111 @@
+:host {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;  
+  justify-content: center; 
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0 1rem;
+  box-sizing: border-box;
+  h1 {
+    padding: 0.7rem;
+    margin: 0;
+    border-radius: 10px;
+    background-color: var(--background-secondary-color);
+    font-weight: 300;
+    color: var(--text-secondary-color);
+  }
+}
+
+.stats-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+@mixin common-style($margin-right: 1rem, $margin-left: 0) {
+  margin: 0 $margin-right 0 $margin-left;
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--background-secondary-color);
+  border-radius: 10px;
+
+  p {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    strong {
+      font-weight: 300;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    span {
+      font-weight: 700;
+      font-size: 1rem;
+    }
+  }
+}
+
+.participations {
+  @include common-style(1rem, 0); 
+}
+
+.medals {
+  @include common-style(1rem, 1rem); 
+}
+
+.athletes {
+  @include common-style(0, 1rem); 
+}
+
+.chart-container {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  margin: 4rem 0 0 0;
+  width: 30vw;
+  height: 30vw;
+  padding: 1rem;
+}
+
+button {
+  margin: 1rem 0;
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--button-border-color);
+  border-radius: 30px;
+  background-color: var(--button-background-color);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  &:hover {
+    background-color: var(--button-border-color);
+  }
+  a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: large;
+  }
+}

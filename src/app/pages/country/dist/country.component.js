@@ -14,12 +14,24 @@ var CountryComponent = /** @class */ (function () {
     function CountryComponent(route, olympicService) {
         this.route = route;
         this.olympicService = olympicService;
+        // Agrégats calculés à partir des données
+        this.totalParticipations = 0;
+        this.totalMedals = 0;
+        this.totalAthletes = 0;
+        this.lineChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        };
+        this.lineChartType = 'line';
     }
     CountryComponent.prototype.ngOnInit = function () {
         var _this = this;
-        // Retrieve the country ID from the route parameters and fetch the corresponding country data
-        // * paramMap is an observable that contains a map of the required and optional parameters specific to the route.
-        // * switchMap is used to map the value from the source observable to a new observable.
+        // Récupération de l'ID du pays depuis l'URL et appel du service pour obtenir ses données
         this.countryData$ = this.route.paramMap.pipe(operators_1.switchMap(function (params) {
             var idParam = params.get('id');
             if (idParam) {
@@ -28,6 +40,59 @@ var CountryComponent = /** @class */ (function () {
             }
             return rxjs_1.of(undefined);
         }));
+        // Souscription à countryData$ pour calculer les agrégats et préparer le graphique
+        this.countryData$.subscribe(function (country) {
+            if (country) {
+                // Calcul du nombre de participations
+                _this.totalParticipations = country.participations.length;
+                // Calcul du total des médailles sur toutes les participations
+                _this.totalMedals = country.participations.reduce(function (sum, participation) { return sum + participation.medalsCount; }, 0);
+                // Calcul du total des athlètes sur toutes les participations
+                _this.totalAthletes = country.participations.reduce(function (sum, participation) { return sum + participation.athleteCount; }, 0);
+                // Préparation des données pour le graphique :
+                // - Axe des x : années de participation
+                // - Axe des y : nombre de médailles pour chaque participation
+                var years = country.participations.map(function (participation) { return participation.year; });
+                var medals = country.participations.map(function (participation) { return participation.medalsCount; });
+                _this.lineChartData = {
+                    labels: years,
+                    datasets: [
+                        {
+                            label: 'Médailles par participation',
+                            data: medals,
+                            fill: false,
+                            borderColor: 'blue',
+                            backgroundColor: 'lightblue',
+                            tension: 0,
+                            type: 'line',
+                            normalized: true,
+                            segment: {
+                                borderColor: 'red',
+                                // borderDash: [5, 5],
+                                borderWidth: 2,
+                                borderJoinStyle: 'round',
+                                borderCapStyle: 'butt',
+                                backgroundColor: 'rgba(255, 0, 0, 0.1)'
+                            },
+                            transitions: {
+                                show: {
+                                    animation: {
+                                        duration: 1000,
+                                        easing: 'easeOutBounce'
+                                    }
+                                },
+                                hide: {
+                                    animation: {
+                                        duration: 1000,
+                                        easing: 'easeOutBounce'
+                                    }
+                                }
+                            }
+                        },
+                    ]
+                };
+            }
+        });
     };
     CountryComponent = __decorate([
         core_1.Component({
