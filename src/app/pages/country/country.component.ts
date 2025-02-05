@@ -86,11 +86,13 @@ export class CountryComponent implements OnInit {
   ngOnInit(): void {
     // paramMap is an Observable that contains a map of the required and optional parameters specific to the route.
     this.countryData$ = this.route.paramMap.pipe( 
-      // switchMap is used to map the values emitted by the source observable to a new observable.
+      // switchMap is used to map the values emitted by the source observable to a new observable and get its last emitted observable.
+      // switchmap catches the parameter emitted by the paramMap observable from URL and returns a new observable with this value.
       switchMap((params) => {
         const idParam = params.get('id');
         if (idParam) {
           const countryId = +idParam;
+          // here we have the new observable returned by the switchMap operator.
           return this.olympicService.getOlympicById(countryId);
         }
         return of(undefined);

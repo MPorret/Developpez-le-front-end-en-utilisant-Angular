@@ -63,7 +63,7 @@ export class HomeChartService {
       {
         data: [], //  Data for the pie chart
         type: 'pie', // Type of the dataset
-        label: '$', // Label for the dataset
+        label: '🎖️', // Label for the dataset
         hidden: false, // Show the dataset by default
         indexAxis: 'y', // Display the data on the y-axis
         normalized: true, // Normalize the data values
@@ -101,12 +101,10 @@ export class HomeChartService {
     ],
   };
 
-  
   public pieChartLegend = false;
   public pieChartOptions: ChartOptions<'pie'> = {
     responsive: true,
     maintainAspectRatio: false,
   };
   public pieChartType: ChartType = 'pie';
-
 }
