@@ -1,3 +1,16 @@
 <h2>Olympic games app</h2>
 <hr />
-<p>{{ (olympics$ | async)?.length }} data loaded</p>
+<h3>Medals per country</h3>
+<div>
+    <span>number of countries</span>
+    <span>{{ data.length }}</span>
+</div>
+<div>
+    <span>number of JOs</span>
+    <span>{{ (olympics$ | async)[0].participations.length }}</span>
+</div>
+<ul>
+    @for (country of data; track country){
+        <li>{{ country.country }} : {{ country.medals}} médailles</li>
+    }
+</ul>
