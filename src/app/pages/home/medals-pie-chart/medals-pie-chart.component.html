@@ -1,0 +1,12 @@
+<ngx-charts-pie-chart
+    *ngIf="data.length"
+    [view]="view"
+    [scheme]="colorScheme"
+    [results]="data"
+    [gradient]="gradient"
+    [legend]="showLegend"
+    [labels]="showLabels"
+    [doughnut]="isDoughnut"
+    (select)="onSelect($event)"
+    (window:resize)="onResize($event)"
+    />
