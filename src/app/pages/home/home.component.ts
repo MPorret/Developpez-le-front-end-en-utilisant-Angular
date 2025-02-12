@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of, reduce } from 'rxjs';
+import { Color, ScaleType } from '@swimlane/ngx-charts';
+import { Observable, of } from 'rxjs';
 import { OlympicCountry } from 'src/app/core/models/Olympic';
 import { Participation } from 'src/app/core/models/Participation';
 import { OlympicService } from 'src/app/core/services/olympic.service';
@@ -12,7 +13,21 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
 })
 export class HomeComponent implements OnInit {
   public olympics$: Observable<any> = of(null);
-  data: any = [];
+  data: {name: string, value: number}[] = [];
+  view: [number, number] = [700, 400];
+
+  // options
+  gradient: boolean = false;
+  showLegend: boolean = false;
+  showLabels: boolean = true;
+  isDoughnut: boolean = false;
+
+  colorScheme: Color = {
+    name: 'myScheme',
+    selectable: true,
+    group: ScaleType.Ordinal,
+    domain: ['#956065', '#89a1db', '#9780a1', '#bfe0f1', '#b8cbe7', '#956065']
+  };
 
   constructor(private olympicService: OlympicService) {
   }
@@ -25,11 +40,22 @@ export class HomeComponent implements OnInit {
           let medals: number = 0;
           countryData.participations.forEach((participation: Participation) => medals += participation.medalsCount);
           this.data.push({
-            country: countryData.country,
-            medals: medals
+            name: countryData.country,
+            value: medals
           });
         })
       }
-    });
+    })
+  }
+
+  onSelect(data: {name: string, value: number, label: string}): void {
+    console.log(data.name, 'is clicked')
+  }
+
+  onResize(event: UIEvent): void {
+    const window = event.target as Window;
+    if (window.innerWidth < 700 ){
+      this.view = [window.innerWidth / 1.35, 400];
+    }
   }
 }

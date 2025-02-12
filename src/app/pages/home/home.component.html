@@ -1,16 +1,29 @@
 <h2>Olympic games app</h2>
 <hr />
-<h3>Medals per country</h3>
-<div>
-    <span>number of countries</span>
-    <span>{{ data.length }}</span>
-</div>
-<div>
-    <span>number of JOs</span>
-    <span>{{ (olympics$ | async)[0].participations.length }}</span>
-</div>
-<ul>
-    @for (country of data; track country){
-        <li>{{ country.country }} : {{ country.medals}} médailles</li>
-    }
-</ul>
+<main>
+    <h3>Medals per country</h3>
+    <div>
+        <div>
+            <span>Number of JOs</span>
+            <span>{{ (olympics$ | async)?.[0].participations.length }}</span>
+        </div>
+        <div>
+            <span>Number of countries</span>
+            <span>{{ data.length }}</span>
+        </div>
+    </div>
+
+    <ngx-charts-pie-chart
+    *ngIf="data.length"
+    [view]="view"
+    [scheme]="colorScheme"
+    [results]="data"
+    [gradient]="gradient"
+    [legend]="showLegend"
+    [labels]="showLabels"
+    [doughnut]="isDoughnut"
+    (select)="onSelect($event)"
+    (window:resize)="onResize($event)"
+    >
+    </ngx-charts-pie-chart>
+</main>
