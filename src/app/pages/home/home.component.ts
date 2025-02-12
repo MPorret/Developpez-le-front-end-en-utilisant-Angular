@@ -1,20 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { Color, ScaleType } from '@swimlane/ngx-charts';
-import { Observable, of } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Color, NgxChartsModule, ScaleType } from '@swimlane/ngx-charts';
+import { Observable, of, Subscription } from 'rxjs';
 import { OlympicCountry } from 'src/app/core/models/Olympic';
 import { Participation } from 'src/app/core/models/Participation';
+import { Indicator } from 'src/app/core/models/Indicator';
 import { OlympicService } from 'src/app/core/services/olympic.service';
+import { HeaderPageComponent } from 'src/app/core/shared/header-page/header-page.component';
 
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [HeaderPageComponent, NgxChartsModule]
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   public olympics$: Observable<any> = of(null);
   data: {name: string, value: number}[] = [];
   view: [number, number] = [700, 400];
+  subscription!: Subscription;
+  title: string = "Medals per country";
+  indicators: Indicator[] = [];
 
   // options
   gradient: boolean = false;
@@ -33,9 +39,10 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.olympics$ = this.olympicService.getOlympics();
-    this.olympics$.subscribe( (value) => {
+    this.subscription = this.olympicService.getOlympics().subscribe( (value) => {
       if (value) {
+        this.indicators.push({label: "Number of JOs", value: value[0].participations.length});
+        this.indicators.push({label: "Number of countries", value: value.length});
         value.forEach((countryData: OlympicCountry) => {
           let medals: number = 0;
           countryData.participations.forEach((participation: Participation) => medals += participation.medalsCount);
@@ -46,6 +53,12 @@ export class HomeComponent implements OnInit {
         })
       }
     })
+  }
+
+  ngOnDestroy(): void {
+    if(this.subscription){
+      this.subscription.unsubscribe();
+    }
   }
 
   onSelect(data: {name: string, value: number, label: string}): void {

@@ -1,17 +1,7 @@
 <h2>Olympic games app</h2>
 <hr />
 <main>
-    <h3>Medals per country</h3>
-    <div>
-        <div>
-            <span>Number of JOs</span>
-            <span>{{ (olympics$ | async)?.[0].participations.length }}</span>
-        </div>
-        <div>
-            <span>Number of countries</span>
-            <span>{{ data.length }}</span>
-        </div>
-    </div>
+    <app-header-page [indicators]="indicators" [title]="title"></app-header-page>
 
     <ngx-charts-pie-chart
     *ngIf="data.length"
@@ -24,6 +14,5 @@
     [doughnut]="isDoughnut"
     (select)="onSelect($event)"
     (window:resize)="onResize($event)"
-    >
-    </ngx-charts-pie-chart>
+    />
 </main>

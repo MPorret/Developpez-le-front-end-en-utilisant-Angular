@@ -7,10 +7,11 @@ import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { HeaderPageComponent } from "./core/shared/header-page/header-page.component";
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, NotFoundComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, NgxChartsModule],
+  declarations: [AppComponent, NotFoundComponent],
+  imports: [BrowserModule,HomeComponent, AppRoutingModule, HttpClientModule, NgxChartsModule, HeaderPageComponent],
   providers: [
     provideCharts(withDefaultRegisterables())
   ],

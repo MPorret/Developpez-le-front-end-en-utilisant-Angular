@@ -1,0 +1,10 @@
+
+<h3>{{ title }}</h3>
+<div>
+    @for (indicator of indicators; track indicator.label){
+        <div>
+            <span>{{indicator.label}}</span>
+            <span>{{ indicator.value }}</span>
+        </div>
+    }
+</div>
