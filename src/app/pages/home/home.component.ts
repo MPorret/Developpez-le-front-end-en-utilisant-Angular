@@ -6,6 +6,7 @@ import { Participation } from 'src/app/core/models/Participation';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { Subscription } from 'rxjs';
 import { Indicator } from 'src/app/core/models/Indicator';
+import { DataItem } from '@swimlane/ngx-charts';
 
 @Component({
     selector: 'app-home',
@@ -18,7 +19,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     subscription!: Subscription;
     indicators: Indicator[] = [];
     title: string = "Medals per country";
-    data: {name: string, value: number}[] = [];
+    data: DataItem[] = [];
 
     constructor(private olympicService: OlympicService) {}
 

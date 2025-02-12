@@ -1,11 +1,6 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Color, NgxChartsModule, ScaleType } from '@swimlane/ngx-charts';
-import { Subscription } from 'rxjs';
-import { OlympicCountry } from 'src/app/core/models/Olympic';
-import { Participation } from 'src/app/core/models/Participation';
-import { Indicator } from 'src/app/core/models/Indicator';
-import { OlympicService } from 'src/app/core/services/olympic.service';
-import { NgSelectOption } from '@angular/forms';
+import { Component, Input } from '@angular/core';
+import { Color, DataItem, NgxChartsModule, ScaleType } from '@swimlane/ngx-charts';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-medals-pie-chart',
@@ -15,8 +10,8 @@ import { NgSelectOption } from '@angular/forms';
 })
 export class MedalsPieChartComponent {
   @Input()
-  data: {name: string, value: number}[] = [];
-  view: [number, number] = [700, 400];
+  data: DataItem[] = [];
+  view: [number, number] = [window.innerWidth / 1.3, 400];
 
   // options
   gradient: boolean = false;
@@ -31,10 +26,10 @@ export class MedalsPieChartComponent {
     domain: ['#956065', '#89a1db', '#9780a1', '#bfe0f1', '#b8cbe7', '#956065']
   };
 
-  
+  constructor(private router: Router){}
 
   onSelect(data: {name: string, value: number, label: string}): void {
-    console.log(data.name, 'is clicked')
+    this.router.navigateByUrl('/' + data.name);
   }
 
   onResize(event: UIEvent): void {
