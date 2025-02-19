@@ -22,7 +22,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     indicators: Indicator[] = [];
     title: string = "Medals per country";
     data: DataItem[] = [];
-
     error: number = 0;
     button: boolean = false;
 
@@ -45,7 +44,6 @@ export class HomeComponent implements OnInit, OnDestroy {
                 this.loadingService.loadingOff();
             } else if (value) {
                 this.error = value;
-                this.loadingService.loadingOff();
             }
         })
     }

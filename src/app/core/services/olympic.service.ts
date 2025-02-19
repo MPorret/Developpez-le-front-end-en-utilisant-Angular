@@ -15,7 +15,7 @@ export class OlympicService {
   loadInitialData() {
     return this.http.get<any>(this.olympicUrl).pipe(
       tap((value) => {
-        setTimeout(() => this.olympics$.next(value), 5000)
+        setTimeout(() => this.olympics$.next(value), 1000)
       }),
       catchError(error => {
         // can be useful to end loading state and let the user know something went wrong

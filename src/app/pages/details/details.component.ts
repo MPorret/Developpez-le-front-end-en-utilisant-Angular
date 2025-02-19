@@ -10,6 +10,7 @@ import { DataItem, Series } from '@swimlane/ngx-charts';
 import { Participation } from 'src/app/core/models/Participation';
 import { CountryLineChartComponent } from "./country-line-chart/country-line-chart.component";
 import { CommonModule } from '@angular/common';
+import { LoadingService } from 'src/app/core/services/loading.service';
 
 @Component({
   selector: 'app-details',
@@ -24,21 +25,22 @@ export class DetailsComponent implements OnInit, OnDestroy{
   data: Series[] = [];
   error: number = 0;
 
-  constructor(private route: ActivatedRoute, private olympicService: OlympicService){}
+  constructor(private route: ActivatedRoute, private olympicService: OlympicService, private loadingService: LoadingService){}
 
   ngOnInit(): void {
+    this.loadingService.loadingOn();
     this.subscription = this.olympicService.getOlympics().subscribe((value)=> {
-      if (value){
+      if (Array.isArray(value)){
         const countrySelected = value.find((e: OlympicCountry)=> e.country === this.countryName);
         if (countrySelected) {
           const {participations, country} = countrySelected;
           const calculTotal = (data: Participation[], key: 'medalsCount' | 'athleteCount') => {
-          let result = 0;
-          data.forEach((value: Participation) => {
-            result += value[key];
-          })
-          return result;
-        }
+            let result = 0;
+            data.forEach((value: Participation) => {
+              result += value[key];
+            })
+            return result;
+          }
         this.indicators.push({label: "Number of entries", value: participations.length});
         this.indicators.push({label: "Total number medals", value: calculTotal(participations, 'medalsCount')});
         this.indicators.push({label: "Total number of athletes", value: calculTotal(participations, 'athleteCount')});
@@ -51,14 +53,17 @@ export class DetailsComponent implements OnInit, OnDestroy{
           })
         })
 
-        this.data.push({
+        this.data = [{
           "name": country,
           "series": series,
-        })
+        }];
+        this.loadingService.loadingOff();
         } else {
-          this.error = value;
+          this.error = 404;
         }
-      } 
+      } else if (value) {
+        this.error = value;
+      }
     })
   }
 
