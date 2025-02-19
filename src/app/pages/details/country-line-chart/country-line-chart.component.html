@@ -1,0 +1,16 @@
+<ngx-charts-line-chart
+[view]="view"
+[scheme]="colorScheme"
+[legend]="legend"
+[showXAxisLabel]="showXAxisLabel"
+[showYAxisLabel]="showYAxisLabel"
+[xAxis]="xAxis"
+[yAxis]="yAxis"
+[xAxisLabel]="xAxisLabel"
+[yAxisLabel]="yAxisLabel"
+[yScaleMax]="yScaleMax"
+[timeline]="timeline"
+[results]="data"
+(window:resize)="onResize($event)"
+/>
+<div *ngIf="!data[0]">No data</div>
