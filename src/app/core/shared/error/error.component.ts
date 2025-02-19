@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ButtonComponent } from "../button/button.component";
+import { LoadingService } from '../../services/loading.service';
 
 @Component({
   selector: 'app-error',
@@ -15,11 +16,14 @@ export class ErrorComponent implements OnInit {
   @Input({required: true})
   status!: number;
 
+  constructor(private loadingService: LoadingService){}
+
 
   ngOnInit(): void {
     if (this.status >= 500) {
       this.image = '../../../assets/img/internal-server-error-500.svg';
       this.message = "Oops! Something went wrong. Please try again later.";
     }
+    this.loadingService.loadingOff();
   }
 }

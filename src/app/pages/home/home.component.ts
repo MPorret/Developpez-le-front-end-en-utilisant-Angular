@@ -45,7 +45,6 @@ export class HomeComponent implements OnInit, OnDestroy {
                 this.loadingService.loadingOff();
             } else if (value) {
                 this.error = value;
-                this.loadingService.loadingOff();
             }
         })
     }
