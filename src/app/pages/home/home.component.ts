@@ -22,7 +22,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     indicators: Indicator[] = [];
     title: string = "Medals per country";
     data: DataItem[] = [];
-
     error: number = 0;
     button: boolean = false;
 
