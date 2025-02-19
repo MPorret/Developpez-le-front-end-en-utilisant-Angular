@@ -9,10 +9,11 @@ import { OlympicCountry } from 'src/app/core/models/Olympic';
 import { DataItem, Series } from '@swimlane/ngx-charts';
 import { Participation } from 'src/app/core/models/Participation';
 import { CountryLineChartComponent } from "./country-line-chart/country-line-chart.component";
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-details',
-  imports: [HeaderPageComponent, ButtonComponent, CountryLineChartComponent],
+  imports: [HeaderPageComponent, ButtonComponent, CountryLineChartComponent, CommonModule],
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss'
 })
@@ -21,14 +22,17 @@ export class DetailsComponent implements OnInit, OnDestroy{
   indicators: Indicator[] = [];
   subscription!: Subscription;
   data: Series[] = [];
+  error: number = 0;
 
   constructor(private route: ActivatedRoute, private olympicService: OlympicService){}
 
   ngOnInit(): void {
     this.subscription = this.olympicService.getOlympics().subscribe((value)=> {
       if (value){
-        const {participations, country} = value.find((e: OlympicCountry)=> e.country === this.countryName);
-        const calculTotal = (data: Participation[], key: 'medalsCount' | 'athleteCount') => {
+        const countrySelected = value.find((e: OlympicCountry)=> e.country === this.countryName);
+        if (countrySelected) {
+          const {participations, country} = countrySelected;
+          const calculTotal = (data: Participation[], key: 'medalsCount' | 'athleteCount') => {
           let result = 0;
           data.forEach((value: Participation) => {
             result += value[key];
@@ -51,7 +55,10 @@ export class DetailsComponent implements OnInit, OnDestroy{
           "name": country,
           "series": series,
         })
-      }
+        } else {
+          this.error = value;
+        }
+      } 
     })
   }
 

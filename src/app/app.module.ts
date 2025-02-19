@@ -10,6 +10,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderPageComponent } from "./core/shared/header-page/header-page.component";
 import { ButtonComponent } from "./core/shared/button/button.component";
+import { LoadingIndicatorComponent } from "./core/shared/loading-indicator/loading-indicator.component";
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,7 +22,7 @@ import { ButtonComponent } from "./core/shared/button/button.component";
     ButtonComponent,
     HttpClientModule,
     NgxChartsModule,
-    BrowserAnimationsModule],
+    BrowserAnimationsModule, LoadingIndicatorComponent],
   providers: [
     provideCharts(withDefaultRegisterables())
   ],
