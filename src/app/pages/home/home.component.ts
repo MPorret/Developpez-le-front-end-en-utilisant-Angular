@@ -46,16 +46,16 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
     }
 
-    formatDataForPieChart(value: OlympicCountry[]){
+    formatDataForPieChart(value: OlympicCountry[]) : void {
         this.indicators.push({label: "Number of JOs", value: value[0].participations.length});
-                this.indicators.push({label: "Number of countries", value: value.length});
-                value.forEach((countryData: OlympicCountry) => {
-                    let medals: number = 0;
-                    countryData.participations.forEach((participation: Participation) => medals += participation.medalsCount);
-                    this.data.push({
-                    name: countryData.country,
-                    value: medals
-                    });
-                })
+        this.indicators.push({label: "Number of countries", value: value.length});
+        value.forEach((countryData: OlympicCountry) => {
+            let medals: number = 0;
+            countryData.participations.forEach((participation: Participation) => medals += participation.medalsCount);
+            this.data.push({
+            name: countryData.country,
+            value: medals
+            });
+        })
     }
 }
