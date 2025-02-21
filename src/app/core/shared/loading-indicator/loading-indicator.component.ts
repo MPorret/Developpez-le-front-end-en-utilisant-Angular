@@ -8,8 +8,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-loading-indicator',
   imports: [CommonModule],
   templateUrl: './loading-indicator.component.html',
-  styleUrl: './loading-indicator.component.scss',
-  standalone: true
+  styleUrl: './loading-indicator.component.scss'
 })
 export class LoadingIndicatorComponent {
   loading$: Observable<boolean>;
