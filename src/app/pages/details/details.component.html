@@ -1,3 +1,7 @@
 <app-button url="/" content="Back" />
 <app-header-page [indicators]="indicators" [title]="countryName" />
-<app-country-line-chart [data]="data" />
+@if (error) {
+    <app-error [status]="error" [button]="button" />
+} @else {
+    <app-country-line-chart [data]="data" />
+}

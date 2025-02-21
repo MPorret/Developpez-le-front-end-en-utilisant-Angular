@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HeaderPageComponent } from "../../core/shared/header-page/header-page.component";
 import { Indicator } from 'src/app/core/models/Indicator';
 import { ButtonComponent } from "../../core/shared/button/button.component";
@@ -11,10 +11,11 @@ import { Participation } from 'src/app/core/models/Participation';
 import { CountryLineChartComponent } from "./country-line-chart/country-line-chart.component";
 import { CommonModule } from '@angular/common';
 import { LoadingService } from 'src/app/core/services/loading.service';
+import { ErrorComponent } from "../../core/shared/error/error.component";
 
 @Component({
   selector: 'app-details',
-  imports: [HeaderPageComponent, ButtonComponent, CountryLineChartComponent, CommonModule],
+  imports: [HeaderPageComponent, ButtonComponent, CountryLineChartComponent, CommonModule, ErrorComponent],
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss'
 })
@@ -24,8 +25,14 @@ export class DetailsComponent implements OnInit, OnDestroy{
   subscription!: Subscription;
   data: Series[] = [];
   error: number = 0;
+  button: boolean = false;
 
-  constructor(private route: ActivatedRoute, private olympicService: OlympicService, private loadingService: LoadingService){}
+  constructor(
+    private route: ActivatedRoute,
+    private olympicService: OlympicService,
+    private loadingService: LoadingService,
+    private router: Router
+  ){}
 
   ngOnInit(): void {
     this.loadingService.loadingOn();
@@ -35,22 +42,18 @@ export class DetailsComponent implements OnInit, OnDestroy{
           const selectedCountry = value.find((e: OlympicCountry)=> e.country === this.countryName);
           if (selectedCountry) {
             this.formatDataForLineChart(selectedCountry)
-            this.loadingService.loadingOff();
-          } else {
-            this.error = 404;
           }
+          this.loadingService.loadingOff();
         } else if (value) {
-          this.error = value;
+          this.router.navigate([`error/${value}`])
         }
-        this.loadingService.loadingOff();
-      }),
-
+      })
     ).subscribe()
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe()
-    }
+  }
 
   formatDataForLineChart(selectedCountry: OlympicCountry): void {
     const {participations, country} = selectedCountry;

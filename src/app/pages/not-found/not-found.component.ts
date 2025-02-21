@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ErrorComponent } from "../../core/shared/error/error.component";
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
     selector: 'app-not-found',
@@ -8,12 +9,9 @@ import { ErrorComponent } from "../../core/shared/error/error.component";
     standalone: true,
     imports: [ErrorComponent]
 })
-export class NotFoundComponent implements OnInit {
-  error: number = 404;
+export class NotFoundComponent {
+  error: number = this.route.snapshot.params?.["status"] || 404;
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  constructor(private route: ActivatedRoute) {}
 
 }

@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscribable, Subscription, tap } from 'rxjs';
 import { LoadingService } from '../../services/loading.service';
 import { RouteConfigLoadEnd, RouteConfigLoadStart, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -10,8 +10,9 @@ import { CommonModule } from '@angular/common';
   templateUrl: './loading-indicator.component.html',
   styleUrl: './loading-indicator.component.scss'
 })
-export class LoadingIndicatorComponent {
+export class LoadingIndicatorComponent implements OnInit, OnDestroy {
   loading$: Observable<boolean>;
+  subscription!: Subscription;
 
   @Input()
   detectRouteTransitions = false;
@@ -24,7 +25,7 @@ export class LoadingIndicatorComponent {
 
   ngOnInit() {
     if (this.detectRouteTransitions) {
-      this.router.events
+      this.subscription = this.router.events
         .pipe(
           tap((event) => {
             if (event instanceof RouteConfigLoadStart) {
@@ -36,5 +37,9 @@ export class LoadingIndicatorComponent {
         )
         .subscribe();
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }
