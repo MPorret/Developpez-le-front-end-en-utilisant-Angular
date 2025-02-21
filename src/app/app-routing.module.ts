@@ -14,6 +14,10 @@ const routes: Routes = [
     component: DetailsComponent
   },
   {
+    path: 'error/:status', // handle error message
+    component: NotFoundComponent,
+  },
+  {
     path: '**', // wildcard
     component: NotFoundComponent,
   },

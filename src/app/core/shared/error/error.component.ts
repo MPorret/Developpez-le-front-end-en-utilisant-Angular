@@ -18,7 +18,6 @@ export class ErrorComponent implements OnInit {
 
   constructor(private loadingService: LoadingService){}
 
-
   ngOnInit(): void {
     if (this.status >= 500) {
       this.image = '../../../assets/img/internal-server-error-500.svg';

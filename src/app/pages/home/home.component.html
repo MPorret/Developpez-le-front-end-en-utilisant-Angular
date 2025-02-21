@@ -1,6 +1,6 @@
-<app-header-page [indicators]="indicators" [title]="title" />
 @if (error) {
     <app-error [status]="error" [button]="button" />
 } @else {
+    <app-header-page [indicators]="indicators" [title]="title" />
     <app-medals-pie-chart [data]="data" />
 }
