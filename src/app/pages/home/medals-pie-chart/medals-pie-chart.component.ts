@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class MedalsPieChartComponent {
   @Input()
   data: DataItem[] = [];
-  view: [number, number] = [window.innerWidth / 1.3, 400];
+  view: [number, number] = [window.innerWidth < 700 ? window.innerWidth : window.innerWidth / 1.3, 400];
 
   // options
   gradient: boolean = false;
@@ -26,17 +26,15 @@ export class MedalsPieChartComponent {
     domain: ['#956065', '#89a1db', '#9780a1', '#bfe0f1', '#b8cbe7', '#956065']
   };
 
-  constructor(private router: Router){}
+  constructor(private router: Router) { }
 
-  onSelect(data: {name: string, value: number, label: string}): void {
+  onSelect(data: { name: string, value: number, label: string }): void {
     this.router.navigateByUrl('/' + data.name);
   }
 
   onResize(event: UIEvent): void {
     const window = event.target as Window;
-    if (window.innerWidth < 700 ){
-      this.view = [window.innerWidth / 1.35, 400];
-    }
+    this.view = [window.innerWidth < 700 ? window.innerWidth : window.innerWidth / 1.3, 400];
   }
 
 }
