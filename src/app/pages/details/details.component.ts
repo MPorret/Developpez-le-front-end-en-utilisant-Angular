@@ -52,7 +52,7 @@ export class DetailsComponent implements OnInit, OnDestroy{
     this.subscription.unsubscribe()
     }
 
-  formatDataForLineChart(selectedCountry: OlympicCountry){
+  formatDataForLineChart(selectedCountry: OlympicCountry): void {
     const {participations, country} = selectedCountry;
     const calculTotal = (data: Participation[], key: 'medalsCount' | 'athleteCount') => {
       let result = 0;
