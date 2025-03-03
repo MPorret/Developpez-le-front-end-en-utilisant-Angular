@@ -24,7 +24,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     error: number = 0;
     button: boolean = false;
 
-    constructor(private olympicService: OlympicService, private loadingService: LoadingService) {}
+    constructor(
+        private olympicService: OlympicService,
+        private loadingService: LoadingService
+    ) {}
 
     ngOnInit(): void {
         this.loadingService.loadingOn();

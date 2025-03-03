@@ -41,7 +41,7 @@ export class DetailsComponent implements OnInit, OnDestroy{
         if (Array.isArray(value)){
           const selectedCountry = value.find((e: OlympicCountry)=> e.country === this.countryName);
           if (selectedCountry) {
-            this.formatDataForLineChart(selectedCountry)
+            this.formatDataForLineChart(selectedCountry);
           }
           this.loadingService.loadingOff();
         } else if (value) {

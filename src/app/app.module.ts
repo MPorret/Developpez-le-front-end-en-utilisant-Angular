@@ -22,7 +22,8 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
     HttpClientModule,
     NotFoundComponent,
     NgxChartsModule,
-    BrowserAnimationsModule, LoadingIndicatorComponent],
+    BrowserAnimationsModule,
+    LoadingIndicatorComponent],
   providers: [
     provideCharts(withDefaultRegisterables())
   ],

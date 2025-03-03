@@ -34,7 +34,7 @@ export class CountryLineChartComponent {
 
   onResize(event: Event): void {
     const window = event.target as Window;
-    if (window.innerWidth < 900 ){
+    if (window.innerWidth < 900) {
       this.view = [window.innerWidth / 1.3, 300];
     }
   }
